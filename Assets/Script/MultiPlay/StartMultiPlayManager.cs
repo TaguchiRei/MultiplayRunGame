@@ -79,7 +79,7 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                     if (result)
                     {
                         _connectionPhase = 0;
-                        SceneManager.LoadScene("RunScene");
+                        //SceneManager.LoadScene("RunScene");
                     }
                     else
                     {
@@ -165,8 +165,13 @@ public class StartMultiPlayManager : MultiPlayManagerBase
 
     public void ConnectionHost(bool isPrivate)
     {
-        lobbyData.IsPrivate = isPrivate;
-        lobbyData.IsLocked = true;
+        lobbyData = new LobbyData
+        {
+            LobbyName = "teroom",
+            IsPrivate = isPrivate,
+            MaxPlayers = 1
+        };
+
         _loadingObject.SetActive(true);
         _buttons.DisableButtons();
         _connectionHost = HostConnect();
@@ -193,6 +198,7 @@ public class StartMultiPlayManager : MultiPlayManagerBase
     {
         try
         {
+            Debug.Log(lobbyId + " lobbyID");
             var lobby = await LobbyService.Instance.GetLobbyAsync(lobbyId);
             return (true, lobby);
         }

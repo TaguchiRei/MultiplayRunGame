@@ -18,8 +18,6 @@ namespace GamesKeystoneFramework.MultiPlaySystem
         /// </summary>
         public async UniTask<bool> CreateLobby(LobbyData lobbyData)
         {
-            try
-            {
                 //Relayの割り当て
                 var allocation = await RelayService.Instance.CreateAllocationAsync(lobbyData.MaxPlayers);
                 lobbyData.Data ??= new();
@@ -49,12 +47,6 @@ namespace GamesKeystoneFramework.MultiPlaySystem
                 var relayServerData = allocation.ToRelayServerData("dtls");
                 NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
                 return true;
-            }
-            catch (Exception e)
-            {
-                Debug.LogError($"Create Lobby Error :{e}");
-                return false;
-            }
         }
 
         public bool ConnectionHost()
