@@ -165,13 +165,6 @@ public class StartMultiPlayManager : MultiPlayManagerBase
 
     public void ConnectionHost(bool isPrivate)
     {
-        lobbyData = new LobbyData
-        {
-            LobbyName = "teroom",
-            IsPrivate = isPrivate,
-            MaxPlayers = 1
-        };
-
         _loadingObject.SetActive(true);
         _buttons.DisableButtons();
         _connectionHost = HostConnect();

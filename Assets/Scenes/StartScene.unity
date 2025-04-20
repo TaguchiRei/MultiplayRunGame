@@ -431,7 +431,7 @@ MonoBehaviour:
     MultiPlayClient: {fileID: 329938442}
   lobbyData:
     LobbyName: TestRoom
-    MaxPlayers: 0
+    MaxPlayers: 2
     IsPrivate: 0
     IsLocked: 0
     VisibilityOptions: 1
