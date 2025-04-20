@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PlayerAnimationManager : MonoBehaviour
+public class HostPlayerAnimationManager : MonoBehaviour
 {
     private static readonly int StartRun = Animator.StringToHash("Start");
     private static readonly int SlidingStart = Animator.StringToHash("SlidingStart");
@@ -15,11 +15,6 @@ public class PlayerAnimationManager : MonoBehaviour
     private void Start()
     {
         _animator = _player.GetComponent<Animator>();
-    }
-
-    private void Update()
-    {
-        //_player.transform.position = new Vector3(_player.transform.position.x, 0, _player.transform.position.z);
     }
 
     public void RunStart()
