@@ -5,11 +5,14 @@ using GamesKeystoneFramework.MultiPlaySystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class StartMultiPlayManager : MultiPlayManagerBase
 {
     private static readonly int ConnectionSelect = Animator.StringToHash("ConnectionSelect");
+    private static readonly int ClientConncetion = Animator.StringToHash("ClientConncetion");
+    private static readonly int HostConncetion = Animator.StringToHash("HostConncetion");
     [SerializeField] private GameObject _loadingObject;
 
     [SerializeField] private GameObject _errorMessageField;
@@ -28,7 +31,7 @@ public class StartMultiPlayManager : MultiPlayManagerBase
         _buttons.DisableButtons();
         _errorMessage = _errorMessageField.GetComponentInChildren<TextMeshProUGUI>();
         _loadingObject.SetActive(true);
-        _connectionPhase = 0;
+        _connectionPhase = 1;
         _initialize = ServicesInitialize();
         Debug.Log("MultiPlayManagerBase.Awake");
     }
@@ -78,13 +81,27 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                 break;
         }
     }
+
+
+    public void SelectClientMode()
+    {
+        _StartCanvasAnimator.SetTrigger(ClientConncetion);
+    }
+
+    public void SelectHostMode()
+    {
+        _StartCanvasAnimator.SetTrigger(HostConncetion);
+    }
     
-    public void ConnectionHost()
+    
+    public void ConnectionHost(bool isPrivate)
     {
         _buttons.DisableButtons();
         _connectionHost = HostConnect();
         _connectionPhase = 2;
     }
+    
+    
     
 
     [Serializable]
@@ -94,14 +111,19 @@ public class StartMultiPlayManager : MultiPlayManagerBase
         public Button SupporterStartButton;
 
         public Button RandomConnectionButton;
-        public Button SearchConnectionButton;
+        public TMP_InputField SearchConnectionField;
+        
+        public Button PrivateConnectionButton;
+        public Button PublicConnectionButton;
 
         public void EnableButtons()
         {
             RunnnerStartButton.enabled = true;
             SupporterStartButton.enabled = true;
             RandomConnectionButton.enabled = true;
-            SearchConnectionButton.enabled = true;
+            SearchConnectionField.enabled = true;
+            PrivateConnectionButton.enabled = true;
+            PublicConnectionButton.enabled = true;
         }
 
         public void DisableButtons()
@@ -109,7 +131,9 @@ public class StartMultiPlayManager : MultiPlayManagerBase
             RunnnerStartButton.enabled = false;
             SupporterStartButton.enabled = false;
             RandomConnectionButton.enabled = false;
-            SearchConnectionButton.enabled = false;
+            SearchConnectionField.enabled = false;
+            PrivateConnectionButton.enabled = false;
+            PublicConnectionButton.enabled = false;
         }
     }
 }
