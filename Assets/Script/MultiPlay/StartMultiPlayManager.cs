@@ -79,7 +79,7 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                     if (result)
                     {
                         _connectionPhase = 0;
-                        SceneManager.LoadScene("HostScene");
+                        SceneManager.LoadScene("RunScene");
                     }
                     else
                     {
@@ -119,14 +119,7 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                 var joinLobbyAwaiter = _connectionClient.GetAwaiter();
                 if (joinLobbyAwaiter.IsCompleted)
                 {
-                    var result = joinLobbyAwaiter.GetResult();
                     _loadingObject.SetActive(false);
-                    if (result)
-                    {
-                        _connectionPhase = 0;
-                        SceneManager.LoadScene("ClientScene");
-                    }
-                    else
                     {
                         _errorMessageField.SetActive(true);
                         _errorMessage.text = "ルーム参加に失敗しました。　\n　ネット環境を確認してください";
@@ -172,6 +165,8 @@ public class StartMultiPlayManager : MultiPlayManagerBase
 
     public void ConnectionHost(bool isPrivate)
     {
+        lobbyData.IsPrivate = isPrivate;
+        lobbyData.IsLocked = true;
         _loadingObject.SetActive(true);
         _buttons.DisableButtons();
         _connectionHost = HostConnect();
