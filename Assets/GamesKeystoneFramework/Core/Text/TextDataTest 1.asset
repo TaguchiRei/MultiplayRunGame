@@ -1,0 +1,159 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7482ea5ce82031b45b19591b35ee03b7, type: 3}
+  m_Name: TextDataTest 1
+  m_EditorClassIdentifier: 
+  TextDataList:
+  - TextLabel: testData
+    DataList:
+    - DataType: 0
+      Text: "\u30C6\u30AD\u30B9\u30C8\u30C7\u30FC\u30BF\u30A8\u30C7\u30A3\u30BF\u30FC\u306E\u66F4\u65B0\u3092\u3057\u307E\u3057\u305F"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 0
+      Text: "\u5F53\u7136\u3053\u306E\u3088\u3046\u306B\u6587\u5B57\u3092\u8868\u793A\u3067\u304D\u307E\u3059"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 1
+      Text: "\u8CEA\u554F\u3082\u4F5C\u308A\u3084\u3059\u304F\u306A\u3063\u3066\u3044\u307E\u3059\u3002"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 2
+      Text: "\u805E\u304D\u305F\u3044"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 0
+      Text: "\u30C6\u30AD\u30B9\u30C8\u30C7\u30FC\u30BF\u30A8\u30C7\u30A3\u30BF\u306E\u4E2D\u3067\u30A4\u30F3\u30C7\u30F3\u30C8\u3092\u5B9F\u88C5\u3059\u308B\u3053\u3068\u3067\u898B\u3084\u3059\u304F\u306A\u308A\u307E\u3057\u305F"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 0
+      Text: "\u305D\u306E\u307B\u304B\u306B\u3082\u3053\u306E\u3088\u3046\u306B"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 1
+      Text: "\u591A\u91CD\u306B\u8CEA\u554F\u3092\u4F5C\u308B\u3053\u3068\u3082\u3067\u304D\u307E\u3059"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 2
+      Text: "\u3059\u3054\u3044"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 0
+      Text: "\u305D\u3046\u8A00\u3063\u3066\u3044\u305F\u3060\u3051\u3066\u5E78\u3044\u3067\u3059"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 0
+      Text: "\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3059"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 2
+      Text: "\u5FAE\u5999"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 0
+      Text: "\u30AB\u30CA\u30B7\u30A4"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 3
+      Text: "QEnd\u306B\u306F\u5165\u529B\u3067\u304D\u307E\u305B\u3093"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 2
+      Text: "\u805E\u304B\u306A\u304F\u3066\u3082\u3044\u3044"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 0
+      Text: "\u305D\u3046\u3067\u3059\u304B"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 3
+      Text: "QEnd\u306B\u306F\u5165\u529B\u3067\u304D\u307E\u305B\u3093"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 0
+      Text: "\u3067\u306F\u66F4\u65B0\u306B\u3064\u3044\u3066\u306E\u8AAC\u660E\u3092\u7D42\u308F\u308A\u307E\u3059"
+      UseEvent: 0
+      MethodNumber: 0
+  - TextLabel: dggseg
+    DataList:
+    - DataType: 0
+      Text: "\u30C6\u30AD\u30B9\u30C8\u30C7\u30FC\u30BF\u30A8\u30C7\u30A3\u30BF\u30FC\u306E\u66F4\u65B0\u3092\u3057\u307E\u3057\u305F\u3002"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 0
+      Text: "\u6A5F\u80FD\u8FFD\u52A0\u3068\u6271\u3044\u3084\u3059\u3055\u306E\u5411\u4E0A\u304C\u76EE\u7684\u3067\u3059\u3002"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 0
+      Text: "\u4ECA\u73FE\u5728\u306F\uFF11\u6BB5\u306EQuestion\u304C\u6B63\u5E38\u306B\u52D5\u304F\u304B\u3092\u78BA\u304B\u3081\u3066\u3044\u307E\u3059\u3002"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 1
+      Text: "\u8CEA\u554F\u306E\u30C6\u30B9\u30C8\u3067\u3059"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 2
+      Text: "\u4E0A\u624B\u304F\u3044\u304F\u304B\uFF1F"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 0
+      Text: "\u3053\u3053\u307E\u3067\u6765\u308C\u307E\u3057\u305F\u304B\uFF1F"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 0
+      Text: "\u9078\u629E\u80A2\u306F\u8868\u793A\u3055\u308C\u307E\u3057\u305F\u304B\uFF1F"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 1
+      Text: "2\u6BB5\u76EE\u306E\u30C6\u30B9\u30C8\u3067\u3059"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 2
+      Text: "\u9078\u629E\u80A2\uFF11"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 0
+      Text: "\u9078\u629E\u80A2\uFF11\u3092\u9078\u629E"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 2
+      Text: "\u9078\u629E\u80A2\uFF12"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 0
+      Text: "\u9078\u629E\u80A2\uFF12\u3092\u9078\u629E"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 3
+      Text: 
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 3
+      Text: 
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 0
+      Text: "\u30A8\u30E9\u30FC\u7121\u304F\u3053\u3053\u307E\u3067\u6765\u308C\u305F\u3089\u3072\u3068\u307E\u305A\u6210\u529F"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 0
+      Text: "\u3053\u308C\u304C\u8868\u793A\u3055\u308C\u305F\u3089\u6B21\u306F\u30A8\u30E9\u30FC\u306B\u306A\u308B\u306F\u305A"
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 0
+      Text: 
+      UseEvent: 0
+      MethodNumber: 0
+    - DataType: 0
+      Text: 
+      UseEvent: 0
+      MethodNumber: 0
