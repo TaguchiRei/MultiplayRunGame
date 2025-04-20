@@ -63,6 +63,7 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                     }
                     else
                     {
+                        _loadingObject.SetActive(false);
                         _errorMessageField.SetActive(true);
                         _errorMessage.text = "オンラインサービスの初期化に失敗しました　\n ネット環境を確認してください";
                     }
@@ -74,6 +75,7 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                 if (connectionHostAwaiter.IsCompleted)
                 {
                     var result = connectionHostAwaiter.GetResult();
+                    _loadingObject.SetActive(false);
                     if (result)
                     {
                         _connectionPhase = 0;
@@ -102,6 +104,7 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                     }
                     else
                     {
+                        _loadingObject.SetActive(false);
                         _connectionPhase = 0;
                         _errorMessageField.SetActive(true);
                         if (result.Item2.Count != 0)
@@ -112,11 +115,12 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                 }
 
                 break;
-            case 4://3で取得したロビーへの参加を待機している
+            case 4://3または５で取得したロビーへの参加を待機している
                 var joinLobbyAwaiter = _connectionClient.GetAwaiter();
                 if (joinLobbyAwaiter.IsCompleted)
                 {
                     var result = joinLobbyAwaiter.GetResult();
+                    _loadingObject.SetActive(false);
                     if (result)
                     {
                         _connectionPhase = 0;
@@ -137,11 +141,12 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                     var result = lobbyCheckAwaiter.GetResult();
                     if (result.Item1 && !result.Item2.IsLocked)
                     {
-                        _connectionPhase = 6;
+                        _connectionPhase = 4;//これ以降の処理は3～と同じなので流用
                         _connectionClient = ClientConnect(result.Item2);
                     }
                     else
                     {
+                        _loadingObject.SetActive(false);
                         _errorMessageField.SetActive(true);
                         if (!result.Item2.IsLocked)
                             _errorMessage.text = "指定されたルームが見つかりませんでした。　\n 接続コードを見直してください";
@@ -149,7 +154,6 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                             _errorMessage.text = "指定されたルームは次のいずれかの理由で参加不可です。　/n既に参加者がいる　作成直後のため初期化が完了していない";
                     }
                 }
-
                 break;
         }
     }
@@ -168,6 +172,7 @@ public class StartMultiPlayManager : MultiPlayManagerBase
 
     public void ConnectionHost(bool isPrivate)
     {
+        _loadingObject.SetActive(true);
         _buttons.DisableButtons();
         _connectionHost = HostConnect();
         _connectionPhase = 2;
@@ -175,6 +180,7 @@ public class StartMultiPlayManager : MultiPlayManagerBase
 
     public void ConnectionClientForRandom()
     {
+        _loadingObject.SetActive(true);
         _connectionClientRandom = _systemClass.MultiPlayClient.GetAllLobbyList();
         _buttons.DisableButtons();
         _connectionPhase = 3;
@@ -182,6 +188,7 @@ public class StartMultiPlayManager : MultiPlayManagerBase
 
     public void ConnectionClient(string lobbyID)
     {
+        _loadingObject.SetActive(true);
         _buttons.DisableButtons();
         _lobbyCheck = GetLobby(lobbyID);
         _connectionPhase = 5;
