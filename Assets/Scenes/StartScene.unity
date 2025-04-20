@@ -1295,13 +1295,13 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 329938440}
+        m_TargetAssemblyTypeName: StartMultiPlayManager, Assembly-CSharp
+        m_MethodName: ConnectionClient
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1735,7 +1735,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1574993690}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 329938440}
+        m_TargetAssemblyTypeName: StartMultiPlayManager, Assembly-CSharp
+        m_MethodName: ConnectionHost
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1574993690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2245,7 +2257,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1704562440}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 329938440}
+        m_TargetAssemblyTypeName: StartMultiPlayManager, Assembly-CSharp
+        m_MethodName: ConnectionHost
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1704562440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2795,7 +2819,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1801014553}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 329938440}
+        m_TargetAssemblyTypeName: StartMultiPlayManager, Assembly-CSharp
+        m_MethodName: ConnectionClientForRandom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1801014553
 MonoBehaviour:
   m_ObjectHideFlags: 0
