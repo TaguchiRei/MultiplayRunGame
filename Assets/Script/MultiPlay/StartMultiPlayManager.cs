@@ -121,6 +121,7 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                 if (joinLobbyAwaiter.IsCompleted)
                 {
                     _loadingObject.SetActive(false);
+                    if(!joinLobbyAwaiter.GetResult())
                     {
                         _errorMessageField.SetActive(true);
                         _errorMessage.text = "ルーム参加に失敗しました。　\n　ネット環境を確認してください";
