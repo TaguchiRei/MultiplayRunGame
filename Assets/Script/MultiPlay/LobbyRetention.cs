@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LobbyRetention : MonoBehaviour
 {
-    public Lobby _joinedLobby { get; private set; }
+    public Lobby JoinedLobby { get; private set; }
     
     public static LobbyRetention Instance;
 
@@ -22,6 +22,6 @@ public class LobbyRetention : MonoBehaviour
 
     public void LobbyJoin(Lobby lobby)
     {
-        _joinedLobby = lobby;
+        JoinedLobby = lobby;
     }
 }
