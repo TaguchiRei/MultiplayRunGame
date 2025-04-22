@@ -1,4 +1,5 @@
 using System;
+using GamesKeystoneFramework.Attributes;
 using UnityEngine;
 
 public class HostPlayerAnimationManager : MonoBehaviour
@@ -11,6 +12,8 @@ public class HostPlayerAnimationManager : MonoBehaviour
     [SerializeField] GameObject _player;
 
     private Animator _animator;
+    
+    [ReadOnlyInInspector] public bool SlowMotion;
 
     private void Start()
     {
