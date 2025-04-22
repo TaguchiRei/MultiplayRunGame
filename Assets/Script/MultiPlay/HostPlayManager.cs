@@ -4,6 +4,7 @@ using TMPro;
 using Unity.Netcode;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HostPlayManager : MultiPlayManagerBase
@@ -11,6 +12,8 @@ public class HostPlayManager : MultiPlayManagerBase
     [SerializeField] private GameObject _hostPlayer;
     
     [SerializeField] private TextMeshProUGUI _startText;
+    
+    [SerializeField] private MultiPlayRadioTower _multiPlayRadioTower;
     
     private GameObject _hostPlayerInstance;
     
