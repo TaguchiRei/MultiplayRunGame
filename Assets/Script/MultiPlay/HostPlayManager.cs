@@ -4,7 +4,6 @@ using TMPro;
 using Unity.Netcode;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class HostPlayManager : MultiPlayManagerBase
@@ -24,6 +23,8 @@ public class HostPlayManager : MultiPlayManagerBase
         _joinedLobby = LobbyRetention.Instance.JoinedLobby;
         Debug.Log($"LobbyName : {_joinedLobby.Name} LobbyID : {_joinedLobby.Id}");
         NetworkManager.Singleton.OnClientConnectedCallback += _ => Lock();
+
+        _multiPlayRadioTower.OnMultiPlayDataReceived = MethodInvoker;
     }
     
     private void Lock()
@@ -32,6 +33,11 @@ public class HostPlayManager : MultiPlayManagerBase
         _startText.enabled = true;
         _startText.text = "サポーターが接続しました";
         _ = LobbyLock();
+    }
+
+    public void MethodInvoker(MultiPlayData multiPlayData,int methodNum)
+    {
+        
     }
 
     /// <summary>
@@ -50,6 +56,5 @@ public class HostPlayManager : MultiPlayManagerBase
     private async UniTask GameStart()
     {
         await UniTask.WaitForSeconds(1);
-        
     }
 }

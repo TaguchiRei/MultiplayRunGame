@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -8,9 +7,8 @@ namespace GamesKeystoneFramework.MultiPlaySystem
     public class MultiPlayRadioTower : NetworkBehaviour
     {
         public Action<MultiPlayData,int> OnMultiPlayDataReceived;
-        public void Send(int methodNum)
+        public void Send(int methodNum, MultiPlayData data = default)
         {
-            var data = new MultiPlayData();
             if (NetworkManager.Singleton.IsHost)
             {
                 Debug.Log("MultiPlayRadioTower: Sending MultiPlayData");
