@@ -17,7 +17,7 @@ public class PlayerJump : StateMachineBehaviour
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         float progress = stateInfo.normalizedTime;
-        if (progress > 0.7f && animManager.SlowMotion)
+        if (progress > 0.5f && animManager.SlowMotion)
         {
             animator.speed = 0.1f;
         }
