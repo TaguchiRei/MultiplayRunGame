@@ -24,17 +24,9 @@ public class HostPlayerManager : MonoBehaviour
     /// </summary>
     [ReadOnlyInInspector]public NetworkVariable<float> _latestJumpTime;
     
-    [HideInInspector] public HostPlayerManager _hostPlayer;
+    [HideInInspector] public HostGameManager _hostGameManager;
 
-    /// <summary>
-    /// テストプレイ用、
-    /// </summary>
-    private void Start()
-    {
-        GameStart();
-    }
-
-    void GameStart()
+    public void GameStart()
     {
         _moveDirection = new Vector3(0, 0, 10);
         _inputManager.OnMove += Move;

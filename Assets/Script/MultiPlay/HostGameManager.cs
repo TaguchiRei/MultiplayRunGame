@@ -17,13 +17,20 @@ public class HostGameManager : MultiPlayManagerBase
     private GameObject _hostPlayerInstance;
     
     private Lobby _joinedLobby;
+    
+    
+    private HostPlayerManager _hostPlayerManager;
+    
     private void Start()
     {
         _startText.enabled = false;
         _joinedLobby = LobbyRetention.Instance.JoinedLobby;
         Debug.Log($"LobbyName : {_joinedLobby.Name} LobbyID : {_joinedLobby.Id}");
         NetworkManager.Singleton.OnClientConnectedCallback += _ => Lock();
-
+        _hostPlayerInstance = Instantiate(_hostPlayer);
+        _hostPlayerManager = _hostPlayerInstance.GetComponent<HostPlayerManager>();
+        _hostPlayerManager._hostGameManager = this;
+        
         _multiPlayRadioTower.OnMultiPlayDataReceived = MethodInvoker;
     }
     
@@ -51,10 +58,17 @@ public class HostGameManager : MultiPlayManagerBase
         };
         
         await LobbyService.Instance.UpdateLobbyAsync(_joinedLobby.Id, updateOptions);
+        await GameStart();
     }
 
     private async UniTask GameStart()
     {
-        await UniTask.WaitForSeconds(1);
+        await UniTask.WaitForSeconds(2);
+        for (int i = 5; i >= 0; i--)
+        {
+            _startText.text = i.ToString();
+            await UniTask.WaitForSeconds(1);
+        }
+        _hostPlayerManager.GameStart();
     }
 }
