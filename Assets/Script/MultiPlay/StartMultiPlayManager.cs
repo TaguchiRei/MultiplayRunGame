@@ -81,7 +81,7 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                         _connectionPhase = 0;
                         //-------------------------ゲーム開始処理をここに記述-------------------------------
                         _gameManager.enabled = true;
-                        _gameManager.WaitMode();
+                        _gameManager.HostConnection();
                         gameObject.SetActive(false);
                         //------------------------------------------------------------------------------
                     }
@@ -129,6 +129,12 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                     {
                         _errorMessageField.SetActive(true);
                         _errorMessage.text = "ルーム参加に失敗しました。　\n　ネット環境を確認してください";
+                    }
+                    else
+                    {
+                        _gameManager.enabled = true;
+                        _gameManager.ClientConnection();
+                        gameObject.SetActive(false);
                     }
                 }
 

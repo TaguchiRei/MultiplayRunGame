@@ -10,10 +10,17 @@ public class GameManager : MultiPlayManagerBase
     
     private bool _started = false;
     
-    public void WaitMode()
+    public void HostConnection()
     {
         radioTower.OnMultiPlayDataReceived += MethodInvoker;
         inGameState = InGameState.Waiting;
+    }
+
+    public void ClientConnection()
+    {
+        radioTower.OnMultiPlayDataReceived += MethodInvoker;
+        inGameState = InGameState.Client;
+        radioTower.Send(0);
     }
 
     private void Update()
@@ -40,5 +47,6 @@ public class GameManager : MultiPlayManagerBase
         Waiting,
         Connecting,
         Playing,
+        Client,
     }
 }

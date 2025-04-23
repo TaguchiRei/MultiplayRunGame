@@ -587,7 +587,7 @@ GameObject:
   - component: {fileID: 329938443}
   - component: {fileID: 329938442}
   m_Layer: 0
-  m_Name: MultiPlayManager
+  m_Name: StartManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -626,6 +626,7 @@ MonoBehaviour:
     SearchConnectionField: {fileID: 1406692842}
     PrivateConnectionButton: {fileID: 1574993689}
     PublicConnectionButton: {fileID: 1704562439}
+  _gameManager: {fileID: 912190604}
 --- !u!4 &329938441
 Transform:
   m_ObjectHideFlags: 0
@@ -1163,6 +1164,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 813288088}
   m_CullTransparentMesh: 1
+--- !u!1 &912190603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 912190605}
+  - component: {fileID: 912190604}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &912190604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912190603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce9b73e61abfd91449cee407f9c18b8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MultiPlayObjectGroup: {fileID: 0}
+  _systemClass:
+    MultiPlayHostSystem: {fileID: 0}
+    MultiPlayClient: {fileID: 0}
+  lobbyData:
+    LobbyName: 
+    MaxPlayers: 0
+    IsPrivate: 0
+    IsLocked: 0
+    VisibilityOptions: 0
+  connectionPhase: 0
+  inGameState: 0
+  radioTower: {fileID: 0}
+--- !u!4 &912190605
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912190603}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.19332556, y: 1.4876313, z: 1.5026321}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &986911458
 GameObject:
   m_ObjectHideFlags: 0
@@ -3650,7 +3708,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4489919169038077232, guid: 592ddefbff5b43a428d5a09d0cef44d4, type: 3}
       propertyPath: m_Name
-      value: Player
+      value: HostPlayer
       objectReference: {fileID: 0}
     - target: {fileID: 8212699542245400552, guid: 592ddefbff5b43a428d5a09d0cef44d4, type: 3}
       propertyPath: GlobalObjectIdHash
@@ -3847,6 +3905,7 @@ SceneRoots:
   - {fileID: 1693586840}
   - {fileID: 387897978}
   - {fileID: 329938441}
+  - {fileID: 912190605}
   - {fileID: 136796090}
   - {fileID: 1170422014}
   - {fileID: 1179045444}
