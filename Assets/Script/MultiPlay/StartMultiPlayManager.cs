@@ -79,7 +79,8 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                     if (result)
                     {
                         _connectionPhase = 0;
-                        SceneManager.LoadScene("RunScene");
+                        //-------------------------ゲーム開始処理をここに記述-------------------------------
+                        //------------------------------------------------------------------------------
                     }
                     else
                     {
@@ -100,7 +101,6 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                         //参加可能なロビーを探して可能なものの中からランダムで参加する。
                         var canJoinLobbies = result.Item2.Where((l) => !l.IsLocked).ToList();
                         var joinLobby = canJoinLobbies[Random.Range(0, canJoinLobbies.Count)];
-                        LobbyRetention.Instance.LobbyJoin(joinLobby);//ロビーを保存
                         _connectionClient = ClientConnect(joinLobby);
                     }
                     else
@@ -138,7 +138,6 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                     if (result.Item1 && !result.Item2.IsLocked)
                     {
                         _connectionPhase = 4;//これ以降の処理は3～と同じなので流用
-                        LobbyRetention.Instance.LobbyJoin(result.Item2);
                         _connectionClient = ClientConnect(result.Item2);
                     }
                     else

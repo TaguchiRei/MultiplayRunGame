@@ -23,8 +23,6 @@ public class HostPlayerManager : MonoBehaviour
     /// 直近のジャンプのタイミング。
     /// </summary>
     [ReadOnlyInInspector]public NetworkVariable<float> _latestJumpTime;
-    
-    [HideInInspector] public HostGameManager _hostGameManager;
 
     public void GameStart()
     {

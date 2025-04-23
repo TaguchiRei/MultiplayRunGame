@@ -8,10 +8,11 @@ namespace GamesKeystoneFramework.MultiPlaySystem
     {
         public Action<MultiPlayData,int> OnMultiPlayDataReceived;
         [SerializeField] NetworkObject networkObject;
-        
-        private void OnEnable()
+
+        private void Start()
         {
-            
+            if(NetworkManager.Singleton.IsHost)
+                networkObject.Spawn();
         }
 
         public void Send(int methodNum, MultiPlayData data = default)
@@ -35,7 +36,7 @@ namespace GamesKeystoneFramework.MultiPlaySystem
         /// サーバー　→　クライアント
         /// </summary>
         [ClientRpc(RequireOwnership = false)]
-        public void SendDataToClientRPC(MultiPlayData multiPlayData,int methodNum)
+        private void SendDataToClientRPC(MultiPlayData multiPlayData,int methodNum)
         {
             if(NetworkManager.Singleton.IsHost)return;//Clientはホストも含まれるため
             Debug.Log(multiPlayData.Value);
@@ -48,7 +49,7 @@ namespace GamesKeystoneFramework.MultiPlaySystem
         /// クライアント　→　サーバー
         /// </summary>
         [ServerRpc(RequireOwnership = false)]
-        public void SendDataToServerRPC(MultiPlayData multiPlayData,int methodNum)
+        private void SendDataToServerRPC(MultiPlayData multiPlayData,int methodNum)
         {
             Debug.Log(multiPlayData.Value);
             OnMultiPlayDataReceived?.Invoke(multiPlayData,methodNum);

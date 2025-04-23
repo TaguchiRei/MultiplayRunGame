@@ -39,10 +39,8 @@ namespace GamesKeystoneFramework.MultiPlaySystem
                 }
 
                 //ロビー作成
-                var lobby = await LobbyService.Instance.CreateLobbyAsync
+                await LobbyService.Instance.CreateLobbyAsync
                     (lobbyData.LobbyName, lobbyData.MaxPlayers, createLobbyOptions);
-                
-                LobbyRetention.Instance.LobbyJoin(lobby);
                 
                 //Relayの接続設定
                 var relayServerData = allocation.ToRelayServerData("dtls");
