@@ -42,7 +42,7 @@ public class HostGameManager : MultiPlayManagerBase
         _ = LobbyLock();
     }
 
-    public void MethodInvoker(MultiPlayData multiPlayData,int methodNum)
+    private void MethodInvoker(MultiPlayData multiPlayData,int methodNum)
     {
         switch (methodNum)
         {
