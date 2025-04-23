@@ -18,12 +18,24 @@ public class PlayerManager : MonoBehaviour
     private bool _jump;
     private bool _onGround;
 
+    private bool _isHost;
+    private GameObject _hostPlayerObject;
+
     public void GameStart()
     {
         _moveDirection = new Vector3(0, 0, 10);
         _inputManager.OnMove += Move;
         _inputManager.OnJump += Jump;
         _inputManager.OnJumpEnd += JumpEnd;
+        if (NetworkManager.Singleton.IsHost)
+        {
+            _isHost = true;
+        }
+        else
+        {
+            _isHost = false;
+            _hostPlayerObject = GameObject.FindGameObjectWithTag("HostPlayer");
+        }
     }
     
     private void FixedUpdate()
@@ -31,6 +43,10 @@ public class PlayerManager : MonoBehaviour
         if (NetworkManager.Singleton.IsHost)//ホストの場合自分で動かす
         {
             _rigidbody.linearVelocity = new Vector3(_moveDirection.x, _rigidbody.linearVelocity.y, _moveDirection.z);
+        }
+        else
+        {
+            
         }
     }
 

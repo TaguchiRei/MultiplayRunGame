@@ -3738,6 +3738,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HostPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 4489919169038077232, guid: 592ddefbff5b43a428d5a09d0cef44d4, type: 3}
+      propertyPath: m_TagString
+      value: HostPlayer
+      objectReference: {fileID: 0}
     - target: {fileID: 8212699542245400552, guid: 592ddefbff5b43a428d5a09d0cef44d4, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 2119884473
