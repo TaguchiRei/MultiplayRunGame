@@ -8,8 +8,6 @@ using TMPro;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -34,6 +32,8 @@ public class StartMultiPlayManager : MultiPlayManagerBase
     private UniTask<(bool, List<Lobby>)> _connectionClientRandom;
 
     private int _connectionPhase;
+    
+    [SerializeField] GameManager _gameManager;
 
     public void Awake()
     {
@@ -80,6 +80,9 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                     {
                         _connectionPhase = 0;
                         //-------------------------ゲーム開始処理をここに記述-------------------------------
+                        _gameManager.enabled = true;
+                        _gameManager.WaitMode();
+                        gameObject.SetActive(false);
                         //------------------------------------------------------------------------------
                     }
                     else

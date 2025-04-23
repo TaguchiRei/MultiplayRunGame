@@ -9,17 +9,17 @@ namespace GamesKeystoneFramework.MultiPlaySystem
         public Action<MultiPlayData,int> OnMultiPlayDataReceived;
         [SerializeField] NetworkObject networkObject;
 
-        private void Start()
+        public void TestSend()
         {
-            if(NetworkManager.Singleton.IsHost)
-                networkObject.Spawn();
+            Debug.Log("TestSend");
+            Send(0);
         }
-
+        
         public void Send(int methodNum, MultiPlayData data = default)
         {
             if (NetworkManager.Singleton.IsHost)
             {
-                Debug.Log("MultiPlayRadioTower: Sending MultiPlayData");
+                Debug.Log("MultiPlayRadioTower: Is Host");
                 data.Value = "Send To Client";
                 SendDataToClientRPC(data, methodNum);
             }
