@@ -7,6 +7,13 @@ namespace GamesKeystoneFramework.MultiPlaySystem
     public class MultiPlayRadioTower : NetworkBehaviour
     {
         public Action<MultiPlayData,int> OnMultiPlayDataReceived;
+        [SerializeField] NetworkObject networkObject;
+        
+        private void OnEnable()
+        {
+            
+        }
+
         public void Send(int methodNum, MultiPlayData data = default)
         {
             if (NetworkManager.Singleton.IsHost)

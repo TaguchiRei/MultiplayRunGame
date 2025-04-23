@@ -47,6 +47,7 @@ public class HostGameManager : MultiPlayManagerBase
         switch (methodNum)
         {
             case 0 :
+                Debug.Log("Client Connection");
                 Lock();
                 break;
             default:
