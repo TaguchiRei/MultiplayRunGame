@@ -950,7 +950,7 @@ GameObject:
   - component: {fileID: 637289252179674776}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: HostPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -983,7 +983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 801278371
+  GlobalObjectIdHash: 2119884473
   InScenePlacedSourceGlobalObjectIdHash: 1407757743
   DeferredDespawnTick: 0
   Ownership: 1
@@ -1148,7 +1148,7 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 3.89
   m_Direction: 1
-  m_Center: {x: 0, y: 2.02, z: 0}
+  m_Center: {x: 0, y: 1.93, z: 0}
 --- !u!114 &6995789920785429764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1169,9 +1169,6 @@ MonoBehaviour:
     moveSpeed: 10
     sideMoveSpeed: 0
     jumpForce: 5
-  _latestJumpTime:
-    m_InternalValue: 0
-  _hostGameManager: {fileID: 0}
 --- !u!114 &637289252179674776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1410,7 +1407,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 6c409eb186c9c3d49af19b1312838546, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

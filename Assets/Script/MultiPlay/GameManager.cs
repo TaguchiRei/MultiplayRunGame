@@ -5,12 +5,15 @@ using GamesKeystoneFramework.MultiPlaySystem;
 using GamesKeystoneFramework.MethodSupport;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GameManager : MultiPlayManagerBase
 {
     [SerializeField, ReadOnlyInInspector] InGameState inGameState;
     [SerializeField] MultiPlayRadioTower radioTower;
     [SerializeField] InputManager inputManager;
+
+    [SerializeField, Grouping] private NetworkObject _clientPlayerNetworkObject;
     
     private bool _started = false;
     
@@ -26,18 +29,23 @@ public class GameManager : MultiPlayManagerBase
         inGameState = InGameState.Waiting;
     }
     
+    /// <summary>
+    /// クライアント側で呼ばれる
+    /// </summary>
     public void ClientConnection()
     {
         _ = WaitSpawn();
     }
 
+    /// <summary>
+    /// クライアント側で呼ばれる
+    /// </summary>
     private async UniTask WaitSpawn()
     {
         radioTower = FindAnyObjectByType<MultiPlayRadioTower>();
         await UniTask.WaitUntil(() => radioTower.IsSpawned);
         radioTower.OnMultiPlayDataReceived += MethodInvoker;
         inGameState = InGameState.Client;
-        radioTower.TestSend();
         radioTower.Send(0);
     }
     
@@ -65,15 +73,32 @@ public class GameManager : MultiPlayManagerBase
         {
             case 0://ホスト側
                 inGameState = InGameState.Connecting;
+                ulong ID = 0;
+                foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
+                {
+                    if (client.ClientId != NetworkManager.Singleton.LocalClientId)
+                    {
+                        ID = client.ClientId;
+                        break;
+                    }
+                }
+                if(ID == 0)return;
+                _clientPlayerNetworkObject.ChangeOwnership(ID);
                 radioTower.Send(1);
                 Debug.Log("Connecting");
                 break;
             case 1://クライアント側
-                
+                _ = WaitChangeOwner();
                 break;
             default:
                 break;
         }
+    }
+
+    private async UniTask WaitChangeOwner()
+    {
+        await UniTask.WaitUntil(() => _clientPlayerNetworkObject.IsOwner);
+        Debug.Log("Owner Changed");
     }
 
     public enum InGameState
