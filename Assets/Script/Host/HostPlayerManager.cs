@@ -45,6 +45,7 @@ public class HostPlayerManager : MonoBehaviour
 
     private void Jump()
     {
+        if (!_onGround) return;
         _onGround = false;
         _rigidbody.AddForce(0,_playerData.jumpForce,0, ForceMode.Impulse);
     }
