@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using GamesKeystoneFramework.Attributes;
 using GamesKeystoneFramework.MultiPlaySystem;
 using GamesKeystoneFramework.MethodSupport;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -12,8 +13,12 @@ public class GameManager : MultiPlayManagerBase
     [SerializeField, ReadOnlyInInspector] InGameState inGameState;
     [SerializeField] MultiPlayRadioTower radioTower;
     [SerializeField] InputManager inputManager;
-
+    
+    [SerializeField, Grouping] private NetworkObject _hostPlayerNetworkObject;
     [SerializeField, Grouping] private NetworkObject _clientPlayerNetworkObject;
+    
+    [SerializeField] TextMeshProUGUI _countdownText;
+
     
     private bool _started = false;
     
@@ -88,7 +93,14 @@ public class GameManager : MultiPlayManagerBase
                 Debug.Log("Connecting");
                 break;
             case 1://クライアント側
+                Debug.Log("WaitChangeOwner");
                 _ = WaitChangeOwner();
+                break;
+            case 2:
+                Debug.Log("StartCountDown");
+                _ = StartCountDown();
+                if(NetworkManager.Singleton.IsHost)
+                    radioTower.Send(2);
                 break;
             default:
                 break;
@@ -98,7 +110,22 @@ public class GameManager : MultiPlayManagerBase
     private async UniTask WaitChangeOwner()
     {
         await UniTask.WaitUntil(() => _clientPlayerNetworkObject.IsOwner);
-        Debug.Log("Owner Changed");
+        Debug.Log($"Owner Changed {_clientPlayerNetworkObject.IsOwner}");
+        radioTower.Send(2);
+    }
+
+    private async UniTask StartCountDown()
+    {
+        _countdownText.gameObject.SetActive(true);
+        for (int i = 5; i >= 0; i--)
+        {
+            _countdownText.text = i.ToString();
+            await UniTask.WaitForSeconds(1);
+        }
+        if(NetworkManager.Singleton.IsHost)
+            _hostPlayerNetworkObject.gameObject.GetComponent<PlayerManager>().GameStart();
+        else
+            _clientPlayerNetworkObject.gameObject.GetComponent<PlayerManager>().GameStart();
     }
 
     public enum InGameState

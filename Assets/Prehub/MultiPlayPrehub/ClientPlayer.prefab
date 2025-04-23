@@ -659,8 +659,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3137684193
-  InScenePlacedSourceGlobalObjectIdHash: 1407757743
+  GlobalObjectIdHash: 2314600530
+  InScenePlacedSourceGlobalObjectIdHash: 2866376380
   DeferredDespawnTick: 0
   Ownership: 1
   AlwaysReplicateAsRoot: 0
@@ -837,6 +837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e9d44d3d398104c80640ca6f666d8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  networkObject: {fileID: 2235410086641557587}
   _rigidbody: {fileID: 4953378246305249784}
   _animationManager: {fileID: 1241921845354582490}
   _inputManager: {fileID: 0}

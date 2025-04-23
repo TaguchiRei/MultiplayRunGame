@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    [SerializeField] private NetworkObject networkObject;
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private HostPlayerAnimationManager _animationManager;
     [SerializeField] private InputManager _inputManager;
@@ -40,14 +41,8 @@ public class PlayerManager : MonoBehaviour
     
     private void FixedUpdate()
     {
-        if (NetworkManager.Singleton.IsHost)//ホストの場合自分で動かす
-        {
+        if(networkObject.IsOwner)
             _rigidbody.linearVelocity = new Vector3(_moveDirection.x, _rigidbody.linearVelocity.y, _moveDirection.z);
-        }
-        else
-        {
-            
-        }
     }
 
     private void Move(Vector2 inputDirection)
@@ -57,14 +52,14 @@ public class PlayerManager : MonoBehaviour
 
     private void Jump()
     {
-        if (!_onGround) return;
+        if (!_onGround && !networkObject.IsOwner) return;
         _onGround = false;
         _rigidbody.AddForce(0,_playerData.jumpForce,0, ForceMode.Impulse);
     }
 
     private void JumpEnd()
     {
-        if (_rigidbody.linearVelocity.y > 0)
+        if (_rigidbody.linearVelocity.y > 0 && !networkObject.IsOwner)
         {
             _rigidbody.linearVelocity = new Vector3(
                 _rigidbody.linearVelocity.x,

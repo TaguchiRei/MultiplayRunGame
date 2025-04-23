@@ -1161,13 +1161,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e9d44d3d398104c80640ca6f666d8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  networkObject: {fileID: 8212699542245400552}
   _rigidbody: {fileID: 4412540617630837892}
   _animationManager: {fileID: 3496724645939955044}
   _inputManager: {fileID: 0}
   _multiPlayRadioTower: {fileID: 0}
   _playerData:
-    moveSpeed: 10
-    sideMoveSpeed: 0
+    moveSpeed: 20
+    sideMoveSpeed: 10
     jumpForce: 5
 --- !u!114 &637289252179674776
 MonoBehaviour:
