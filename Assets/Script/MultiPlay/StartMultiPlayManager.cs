@@ -132,6 +132,7 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                     }
                     else
                     {
+                        Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa");
                         _gameManager.enabled = true;
                         _gameManager.ClientConnection();
                         gameObject.SetActive(false);

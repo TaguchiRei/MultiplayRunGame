@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GamesKeystoneFramework.MethodSupport
 {
-    class InvokeSystem : MonoBehaviour
+    public class InvokeSystem : MonoBehaviour
     {
         public void DelaySecondsInvoke(Action action, float delay)
         {

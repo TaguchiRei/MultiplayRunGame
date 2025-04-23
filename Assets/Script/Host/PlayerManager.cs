@@ -2,10 +2,9 @@ using System;
 using GamesKeystoneFramework.Attributes;
 using GamesKeystoneFramework.MultiPlaySystem;
 using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class HostPlayerManager : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private HostPlayerAnimationManager _animationManager;
@@ -18,11 +17,6 @@ public class HostPlayerManager : MonoBehaviour
 
     private bool _jump;
     private bool _onGround;
-    
-    /// <summary>
-    /// 直近のジャンプのタイミング。
-    /// </summary>
-    [ReadOnlyInInspector]public NetworkVariable<float> _latestJumpTime;
 
     public void GameStart()
     {
@@ -50,7 +44,6 @@ public class HostPlayerManager : MonoBehaviour
         if (!_onGround) return;
         _onGround = false;
         _rigidbody.AddForce(0,_playerData.jumpForce,0, ForceMode.Impulse);
-        _latestJumpTime.Value = (float)NetworkManager.Singleton.ServerTime.Time;
     }
 
     private void JumpEnd()
