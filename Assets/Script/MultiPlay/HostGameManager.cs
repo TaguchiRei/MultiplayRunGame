@@ -26,7 +26,7 @@ public class HostGameManager : MultiPlayManagerBase
         _startText.enabled = false;
         _joinedLobby = LobbyRetention.Instance.JoinedLobby;
         Debug.Log($"LobbyName : {_joinedLobby.Name} LobbyID : {_joinedLobby.Id}");
-        NetworkManager.Singleton.OnClientConnectedCallback += _ => Lock();
+        
         _hostPlayerInstance = Instantiate(_hostPlayer);
         _hostPlayerManager = _hostPlayerInstance.GetComponent<HostPlayerManager>();
         _hostPlayerManager._hostGameManager = this;
@@ -44,7 +44,14 @@ public class HostGameManager : MultiPlayManagerBase
 
     public void MethodInvoker(MultiPlayData multiPlayData,int methodNum)
     {
-        
+        switch (methodNum)
+        {
+            case 0 :
+                Lock();
+                break;
+            default:
+                break;
+        }
     }
 
     /// <summary>

@@ -120,6 +120,7 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                 var joinLobbyAwaiter = _connectionClient.GetAwaiter();
                 if (joinLobbyAwaiter.IsCompleted)
                 {
+                    _connectionPhase = 0;
                     _loadingObject.SetActive(false);
                     if(!joinLobbyAwaiter.GetResult())
                     {
