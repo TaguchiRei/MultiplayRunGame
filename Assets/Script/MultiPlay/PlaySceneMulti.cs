@@ -1,19 +1,20 @@
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlaySceneMulti : MonoBehaviour
 {
-    [SerializeField] private GameObject _hostSceneManager;
-    [SerializeField] private GameObject _clientSceneManager;
+    [SerializeField] private GameObject _hostGameManager;
+    [SerializeField] private GameObject _clientGameManager;
     private void Awake()
     {
         if (NetworkManager.Singleton.IsHost)
         {
-            Instantiate(_hostSceneManager);
+            Instantiate(_hostGameManager);
         }
         else
         {
-            Instantiate(_clientSceneManager);
+            Instantiate(_clientGameManager);
         }
     }
 }

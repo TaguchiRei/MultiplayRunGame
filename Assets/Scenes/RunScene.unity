@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 355581868}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1091,6 +1091,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6444160358134528148, guid: 592ddefbff5b43a428d5a09d0cef44d4, type: 3}
   m_PrefabInstance: {fileID: 2084223924}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1337848790
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1337848792}
+  - component: {fileID: 1337848791}
+  m_Layer: 0
+  m_Name: InputManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1337848791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337848790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b64bd2338111a44a6630fb19f9b14a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1337848792
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337848790}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.5060475, y: -0.2916127, z: 5.3576293}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1365445313 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8710388516822888674, guid: 592ddefbff5b43a428d5a09d0cef44d4, type: 3}
@@ -1514,6 +1558,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 2084223927}
   _animationManager: {fileID: 2084223928}
+  _inputManager: {fileID: 1337848791}
+  _playerData:
+    moveSpeed: 10
+    jumpForce: 5
+  _latestJumpTime:
+    m_InternalValue: 0
 --- !u!114 &2084223935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1641,3 +1691,4 @@ SceneRoots:
   - {fileID: 1696885950}
   - {fileID: 11467612}
   - {fileID: 10525940}
+  - {fileID: 1337848792}

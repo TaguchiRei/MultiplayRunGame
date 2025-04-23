@@ -6,7 +6,7 @@ using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
 
-public class HostPlayManager : MultiPlayManagerBase
+public class HostGameManager : MultiPlayManagerBase
 {
     [SerializeField] private GameObject _hostPlayer;
     
