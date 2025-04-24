@@ -69,17 +69,18 @@ public class PlayerManager : MonoBehaviour
         if (!_onGround && !networkObject.IsOwner) return;
         _onGround = false;
         _rigidbody.AddForce(0,_playerData.jumpForce,0, ForceMode.Impulse);
+        _animationManager.StartJump();
     }
 
     private void JumpEnd()
     {
-        if (_rigidbody.linearVelocity.y > 0 && !networkObject.IsOwner)
-        {
-            _rigidbody.linearVelocity = new Vector3(
-                _rigidbody.linearVelocity.x,
-                _rigidbody.linearVelocity.y / 2,
-                _rigidbody.linearVelocity.z);
-        }
+        if (!(_rigidbody.linearVelocity.y > 0) || networkObject.IsOwner) return;
+        
+        _rigidbody.linearVelocity = new Vector3(
+            _rigidbody.linearVelocity.x,
+            _rigidbody.linearVelocity.y / 2,
+            _rigidbody.linearVelocity.z);
+        _animationManager.EndJump();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -87,6 +88,7 @@ public class PlayerManager : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground") && !_onGround)
         {
             _onGround = true;
+            _animationManager.EndJump();
         }
     }
 
