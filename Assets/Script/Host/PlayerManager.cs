@@ -14,15 +14,14 @@ public class PlayerManager : MonoBehaviour
     
     [SerializeField, Grouping] private PlayerData _playerData;
     
+    [SerializeField] private CameraScript _cameraScript;
+    
     private Vector3 _moveDirection = Vector3.zero;
-
-    private Vector3 _animationDirection;
 
     private bool _jump;
     private bool _onGround;
 
     private bool _isHost;
-    private GameObject _hostPlayerObject;
 
 
     private bool _gameStarted;
@@ -34,6 +33,9 @@ public class PlayerManager : MonoBehaviour
 
     public void GameStart()
     {
+        Debug.Log($"Game Started{gameObject.name}");
+        _animationManager.AnimationStart();
+        _cameraScript.SetCamera(gameObject);
         _gameStarted = true;
         _moveDirection = new Vector3(0, 0, 10);
         _inputManager.OnMove += Move;
@@ -46,9 +48,7 @@ public class PlayerManager : MonoBehaviour
         else
         {
             _isHost = false;
-            _hostPlayerObject = GameObject.FindGameObjectWithTag("HostPlayer");
         }
-        Camera.main.gameObject.GetComponent<CameraScript>().SetCamera(gameObject);
     }
     
     private void FixedUpdate()
@@ -62,7 +62,11 @@ public class PlayerManager : MonoBehaviour
     private void Move(Vector2 inputDirection)
     {
         _moveDirection.x = inputDirection.x * _playerData.sideMoveSpeed;
-        _animationDirection = new Vector2(inputDirection.x , 1);
+    }
+
+    private void MoveEnd()
+    {
+        _moveDirection.x = 0;
     }
 
     private void Jump()

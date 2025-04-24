@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CameraScript : MonoBehaviour
 {
-    private GameObject targetObj;
+    private GameObject _targetObj;
 
     private Vector3 _relativePosition;
     
@@ -12,12 +12,15 @@ public class CameraScript : MonoBehaviour
     
     public void SetCamera(GameObject target)
     {
+        _targetObj = target;
         _relativePosition = target.transform.position - transform.position;
+        _gameStarted = true;
     }
 
     private void FixedUpdate()
     {
         if(!_gameStarted) return;
-        transform.position = targetObj.transform.position + _relativePosition;
+        var targetPos = _targetObj.transform.position - _relativePosition;
+        transform.position = new Vector3(0, transform.position.y, targetPos.z);
     }
 }

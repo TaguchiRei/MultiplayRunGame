@@ -624,6 +624,7 @@ GameObject:
   - component: {fileID: 408227322977597859}
   - component: {fileID: 8564776219503948173}
   - component: {fileID: 2866297058277882246}
+  - component: {fileID: 2600475370226833815}
   m_Layer: 0
   m_Name: ClientPlayer
   m_TagString: HostPlayer
@@ -699,6 +700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 7798445614484460132}
+  _inputManager: {fileID: 0}
   SlowMotion: 0
 --- !u!114 &2327496414040845759
 MonoBehaviour:
@@ -724,7 +726,7 @@ MonoBehaviour:
   RotationMaxInterpolationTime: 0.1
   ScaleLerpSmoothing: 1
   ScaleMaxInterpolationTime: 0.1
-  AuthorityMode: 0
+  AuthorityMode: 1
   TickSyncChildren: 0
   UseUnreliableDeltas: 0
   SyncPositionX: 1
@@ -846,6 +848,7 @@ MonoBehaviour:
     moveSpeed: 10
     sideMoveSpeed: 0
     jumpForce: 5
+  _cameraScript: {fileID: 0}
 --- !u!114 &2866297058277882246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -934,6 +937,23 @@ MonoBehaviour:
   - {fileID: 7936160354944569142}
   - {fileID: 8618081088681875756}
   - {fileID: 4269970757652916730}
+--- !u!114 &2600475370226833815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2408821367601672571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkRigidbodyBaseExpanded: 0
+  UseRigidBodyForMotion: 0
+  AutoUpdateKinematicState: 1
+  AutoSetKinematicOnDespawn: 1
 --- !u!1 &2681350265999399177
 GameObject:
   m_ObjectHideFlags: 0

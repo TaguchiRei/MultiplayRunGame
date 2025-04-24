@@ -1,5 +1,6 @@
 using System;
 using GamesKeystoneFramework.Attributes;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerAnimationManager : MonoBehaviour
@@ -27,6 +28,7 @@ public class PlayerAnimationManager : MonoBehaviour
         _animator.SetBool(Move, true);
         _animator.SetBool(Run, true);
         _inputManager.OnMove += LRFBUpdate;
+        _inputManager.OnMoveEnd += OnMoveEnd;
     }
 
     /// <summary>
@@ -37,6 +39,11 @@ public class PlayerAnimationManager : MonoBehaviour
     {
         _animator.SetFloat(FB, 1);
         _animator.SetFloat(LR, moveVector.x);
+    }
+
+    private void OnMoveEnd()
+    {
+        _animator.SetFloat(LR, 0);
     }
 
     public void StartJump()

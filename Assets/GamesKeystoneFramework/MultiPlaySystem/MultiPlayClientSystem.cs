@@ -37,6 +37,7 @@ namespace GamesKeystoneFramework.MultiPlaySystem
         /// <returns></returns>
         protected async UniTask<bool> LobbyCheck(string lobbyId)
         {
+            Debug.Log("Checking Lobby");
             try
             { 
                 await LobbyService.Instance.GetLobbyAsync(lobbyId);
