@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class PlayerJump : StateMachineBehaviour
 {
-    private HostPlayerAnimationManager animManager;
+    private PlayerAnimationManager animManager;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (animManager == null)
         {
-            animManager = animator.gameObject.transform.parent.GetComponent<HostPlayerAnimationManager>();
+            animManager = animator.gameObject.transform.parent.GetComponent<PlayerAnimationManager>();
             Debug.Log(animManager == null);
         }
     }

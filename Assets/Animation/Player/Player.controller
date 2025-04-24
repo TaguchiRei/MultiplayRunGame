@@ -173,7 +173,7 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
---- !u!114 &-2740145498886752046
+--- !u!114 &-2655444365902852260
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -302,8 +302,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: -1534785751095760243}
   - {fileID: 6896922931757802668}
-  m_StateMachineBehaviours:
-  - {fileID: -2740145498886752046}
+  m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -331,7 +330,8 @@ AnimatorState:
   m_Transitions:
   - {fileID: 6884501178743914701}
   - {fileID: 7560148732404043643}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: -2655444365902852260}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

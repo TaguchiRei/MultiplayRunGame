@@ -8,7 +8,7 @@ public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private NetworkObject networkObject;
     [SerializeField] private Rigidbody _rigidbody;
-    [SerializeField] private HostPlayerAnimationManager _animationManager;
+    [SerializeField] private PlayerAnimationManager _animationManager;
     [SerializeField] private InputManager _inputManager;
     [SerializeField] private MultiPlayRadioTower _multiPlayRadioTower;
     
@@ -61,7 +61,7 @@ public class PlayerManager : MonoBehaviour
     private void Move(Vector2 inputDirection)
     {
         _moveDirection.x = inputDirection.x * _playerData.sideMoveSpeed;
-        _animationDirection = new Vector2();
+        _animationDirection = new Vector2(inputDirection.x , 1);
     }
 
     private void Jump()
