@@ -16,14 +16,25 @@ public class PlayerManager : MonoBehaviour
     
     private Vector3 _moveDirection = Vector3.zero;
 
+    private Vector3 _animationDirection;
+
     private bool _jump;
     private bool _onGround;
 
     private bool _isHost;
     private GameObject _hostPlayerObject;
 
+
+    private bool _gameStarted;
+
+    private void Start()
+    {
+        _gameStarted = false;
+    }
+
     public void GameStart()
     {
+        _gameStarted = true;
         _moveDirection = new Vector3(0, 0, 10);
         _inputManager.OnMove += Move;
         _inputManager.OnJump += Jump;
@@ -41,13 +52,16 @@ public class PlayerManager : MonoBehaviour
     
     private void FixedUpdate()
     {
-        if(networkObject.IsOwner)
+        if (networkObject.IsOwner && _gameStarted)
+        {
             _rigidbody.linearVelocity = new Vector3(_moveDirection.x, _rigidbody.linearVelocity.y, _moveDirection.z);
+        }
     }
 
     private void Move(Vector2 inputDirection)
     {
         _moveDirection.x = inputDirection.x * _playerData.sideMoveSpeed;
+        _animationDirection = new Vector2();
     }
 
     private void Jump()
