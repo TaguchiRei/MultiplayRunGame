@@ -7,10 +7,10 @@ using UnityEngine;
 
 public class PlayerAnimationManager : MonoBehaviour
 {
-    private static readonly int Run = Animator.StringToHash("Run");
-    private static readonly int Jump = Animator.StringToHash("Jump");
     private static readonly int FB = Animator.StringToHash("FB");
     private static readonly int LR = Animator.StringToHash("LR");
+    private static readonly int Run = Animator.StringToHash("Run");
+    private static readonly int Jump = Animator.StringToHash("Jump");
 
     [SerializeField] GameObject _player;
     

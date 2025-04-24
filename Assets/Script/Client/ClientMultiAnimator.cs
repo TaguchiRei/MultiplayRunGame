@@ -8,7 +8,7 @@ public class ClientMultiAnimator : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void AnimationUpdateBoolServerRPC(int hash, bool value)
     {
-        animator.SetBool(hash, true);
+        animator.SetBool(hash, value);
     }
 
     [ServerRpc(RequireOwnership = false)]

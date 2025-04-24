@@ -135,7 +135,6 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                 {
                     _connectionPhase = 0;
                     _loadingObject.SetActive(false);
-                    _buttons.HideButtons();
                     if(!joinLobbyAwaiter.GetResult())
                     {
                         _errorMessageField.SetActive(true);
@@ -199,6 +198,7 @@ public class StartMultiPlayManager : MultiPlayManagerBase
 
     public void ConnectionClientForRandom()
     {
+        _buttons.HideButtons();
         _loadingObject.SetActive(true);
         _connectionClientRandom = _systemClass.MultiPlayClient.GetAllLobbyList();
         _buttons.DisableButtons();
@@ -207,6 +207,7 @@ public class StartMultiPlayManager : MultiPlayManagerBase
 
     public void ConnectionClient(string lobbyID)
     {
+        _buttons.HideButtons();
         _loadingObject.SetActive(true);
         _buttons.DisableButtons();
         _lobbyCheck = GetLobby(lobbyID);

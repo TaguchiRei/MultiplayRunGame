@@ -11,24 +11,22 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private PlayerAnimationManager _animationManager;
     [SerializeField] private InputManager _inputManager;
     [SerializeField] private MultiPlayRadioTower _multiPlayRadioTower;
-    
+
     [SerializeField, Grouping] private PlayerData _playerData;
-    
+
     [SerializeField] private CameraScript _cameraScript;
-    
+
     private Vector3 _moveDirection = Vector3.zero;
     private float _moveLR;
-
     private bool _jump;
     private bool _onGround;
-
     private bool _isHost;
-
-
     private bool _gameStarted;
-
     private bool _jumping;
-    
+
+    [SerializeField] private Vector3 _defaultGravity;
+    [SerializeField] private Vector3 _fallingGravity;
+
     private void Start()
     {
         _gameStarted = false;
@@ -42,24 +40,26 @@ public class PlayerManager : MonoBehaviour
         _animationManager.AnimationStart();
         _cameraScript.SetCamera(gameObject);
         _gameStarted = true;
-        
+
         _moveDirection = new Vector3(0, 0, 10);
         _moveLR = 0;
-        
+
         _inputManager.OnMove += Move;
         _inputManager.OnMoveEnd += MoveEnd;
         _inputManager.OnJump += Jump;
         _isHost = NetworkManager.Singleton.IsHost;
         _inputManager.GameStart();
     }
-    
+
     private void FixedUpdate()
     {
         if (networkObject.IsOwner && _gameStarted)
         {
-            _rigidbody.linearVelocity = 
+            _rigidbody.linearVelocity =
                 new Vector3(_moveLR * _playerData.sideMoveSpeed, _rigidbody.linearVelocity.y, _moveDirection.z);
         }
+
+        _rigidbody.AddForce(_rigidbody.linearVelocity.y >= 0 ? _defaultGravity : _fallingGravity);
     }
 
     private void Update()
@@ -68,6 +68,9 @@ public class PlayerManager : MonoBehaviour
         {
             _rigidbody.AddForce(Vector3.up * _playerData.jumpForce, ForceMode.Impulse);
             _jumping = false;
+            if (_rigidbody.linearVelocity.y < 0)
+            {
+            }
         }
     }
 

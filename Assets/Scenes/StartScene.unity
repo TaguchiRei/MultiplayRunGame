@@ -6532,7 +6532,7 @@ GameObject:
   - component: {fileID: 1179045441}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12465,6 +12465,10 @@ PrefabInstance:
       propertyPath: _multiPlayRadioTower
       value: 
       objectReference: {fileID: 1678203261}
+    - target: {fileID: 6995789920785429764, guid: 592ddefbff5b43a428d5a09d0cef44d4, type: 3}
+      propertyPath: _playerData.jumpForce
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8212699542245400552, guid: 592ddefbff5b43a428d5a09d0cef44d4, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 2119884473
@@ -13260,6 +13264,10 @@ PrefabInstance:
       propertyPath: _multiPlayRadioTower
       value: 
       objectReference: {fileID: 1678203261}
+    - target: {fileID: 8564776219503948173, guid: 562c04f12e561a64b93b1c82e7b58d69, type: 3}
+      propertyPath: _playerData.jumpForce
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
