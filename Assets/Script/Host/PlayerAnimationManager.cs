@@ -22,22 +22,24 @@ public class PlayerAnimationManager : MonoBehaviour
         _animator = _player.GetComponent<Animator>();
     }
 
-    public void LRFBUpdate(Vector2 moveVector)
+    public void AnimationStart()
+    {
+        _animator.SetBool(Move, true);
+        _animator.SetBool(Run, true);
+        _inputManager.OnMove += LRFBUpdate;
+    }
+
+    /// <summary>
+    /// 走るアニメーションの動きを制御
+    /// </summary>
+    /// <param name="moveVector"></param>
+    private void LRFBUpdate(Vector2 moveVector)
     {
         _animator.SetFloat(FB, 1);
         _animator.SetFloat(LR, moveVector.x);
     }
 
-    public void AnimationStart()
-    {
-        _animator.SetBool(Move, true);
-        _animator.SetBool(Run, true);
-        _inputManager.OnJump += StartJump;
-        _inputManager.OnMove += LRFBUpdate;
-    }
-
-
-    private void StartJump()
+    public void StartJump()
     {
         _animator.SetBool(Jump, true);
     }
