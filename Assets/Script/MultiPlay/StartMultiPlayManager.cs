@@ -170,6 +170,11 @@ public class StartMultiPlayManager : MultiPlayManagerBase
         }
     }
 
+    public void ClipRoomID()
+    {
+        GUIUtility.systemCopyBuffer = _joinedLobby.Id;
+    }
+
 
     public void SelectClientMode()
     {
