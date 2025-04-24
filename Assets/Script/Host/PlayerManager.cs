@@ -66,7 +66,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Jump()
     {
-        if (!_onGround && !networkObject.IsOwner) return;
+        if (!_onGround || !networkObject.IsOwner) return;
         _onGround = false;
         _rigidbody.AddForce(0,_playerData.jumpForce,0, ForceMode.Impulse);
         _animationManager.StartJump();
@@ -87,6 +87,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground") && !_onGround)
         {
+            Debug.Log("OnGround");
             _onGround = true;
             _animationManager.EndJump();
         }
