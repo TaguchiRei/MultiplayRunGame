@@ -3864,6 +3864,10 @@ PrefabInstance:
       propertyPath: _inputManager
       value: 
       objectReference: {fileID: 1122582600}
+    - target: {fileID: 4168493466105832800, guid: 592ddefbff5b43a428d5a09d0cef44d4, type: 3}
+      propertyPath: m_UpdateMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4489919169038077232, guid: 592ddefbff5b43a428d5a09d0cef44d4, type: 3}
       propertyPath: m_Name
       value: HostPlayer
@@ -4091,6 +4095,10 @@ PrefabInstance:
       propertyPath: _inputManager
       value: 
       objectReference: {fileID: 1122582600}
+    - target: {fileID: 2019721498840256598, guid: 562c04f12e561a64b93b1c82e7b58d69, type: 3}
+      propertyPath: m_UpdateMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2235410086641557587, guid: 562c04f12e561a64b93b1c82e7b58d69, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 2314600530

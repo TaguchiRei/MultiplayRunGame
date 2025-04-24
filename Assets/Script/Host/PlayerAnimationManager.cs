@@ -27,6 +27,7 @@ public class PlayerAnimationManager : MonoBehaviour
     {
         _animator.SetBool(Move, true);
         _animator.SetBool(Run, true);
+        _animator.SetFloat(FB, 1);
         _inputManager.OnMove += LRFBUpdate;
         _inputManager.OnMoveEnd += OnMoveEnd;
     }
