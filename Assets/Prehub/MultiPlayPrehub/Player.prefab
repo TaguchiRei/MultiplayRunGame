@@ -1163,6 +1163,8 @@ MonoBehaviour:
   _cameraScript: {fileID: 0}
   _defaultGravity: {x: 0, y: -10, z: 0}
   _fallingGravity: {x: 0, y: -40, z: 0}
+  _hostTransform: {fileID: 0}
+  _clientModel: {fileID: 0}
 --- !u!114 &637289252179674776
 MonoBehaviour:
   m_ObjectHideFlags: 0

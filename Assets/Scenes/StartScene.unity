@@ -4907,6 +4907,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7798445614484460132, guid: 562c04f12e561a64b93b1c82e7b58d69, type: 3}
   m_PrefabInstance: {fileID: 5607478808281754092}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &948997919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 948997916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c357111fa99a97c4eb8ee2a04c956438, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &966784870
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8583,6 +8595,18 @@ MonoBehaviour:
       - m_Target: {fileID: 329938440}
         m_TargetAssemblyTypeName: StartMultiPlayManager, Assembly-CSharp
         m_MethodName: SelectHostMode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 948997919}
+        m_TargetAssemblyTypeName: ClientModelPositionSet, Assembly-CSharp
+        m_MethodName: SelectHost
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13361,7 +13385,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7798445614484460132, guid: 562c04f12e561a64b93b1c82e7b58d69, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 948997919}
   m_SourcePrefab: {fileID: 100100000, guid: 562c04f12e561a64b93b1c82e7b58d69, type: 3}
 --- !u!114 &8212699543026611236 stripped
 MonoBehaviour:

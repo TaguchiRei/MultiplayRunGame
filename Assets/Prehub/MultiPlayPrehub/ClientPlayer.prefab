@@ -820,10 +820,12 @@ MonoBehaviour:
   _playerData:
     moveSpeed: 40
     sideMoveSpeed: 10
-    jumpForce: 10
+    jumpForce: 30
   _cameraScript: {fileID: 0}
-  _defaultGravity: {x: 0, y: 0, z: 0}
-  _fallingGravity: {x: 0, y: 0, z: 0}
+  _defaultGravity: {x: 0, y: -10, z: 0}
+  _fallingGravity: {x: 0, y: -40, z: 0}
+  _hostTransform: {fileID: 0}
+  _clientModel: {fileID: 7798445614484460132}
 --- !u!114 &2866297058277882246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2139,6 +2141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8456218757725453132}
   - component: {fileID: 2019721498840256598}
+  - component: {fileID: 7505275132710495479}
   m_Layer: 0
   m_Name: LowPolygonHuman
   m_TagString: Untagged
@@ -2185,6 +2188,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7505275132710495479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7798445614484460132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c357111fa99a97c4eb8ee2a04c956438, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7912449359240831500
 GameObject:
   m_ObjectHideFlags: 0
