@@ -48,6 +48,7 @@ public class PlayerManager : MonoBehaviour
             _isHost = false;
             _hostPlayerObject = GameObject.FindGameObjectWithTag("HostPlayer");
         }
+        Camera.main.gameObject.GetComponent<CameraScript>().SetCamera(gameObject);
     }
     
     private void FixedUpdate()
