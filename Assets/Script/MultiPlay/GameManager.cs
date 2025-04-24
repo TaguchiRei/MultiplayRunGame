@@ -1,12 +1,9 @@
-using System;
 using Cysharp.Threading.Tasks;
 using GamesKeystoneFramework.Attributes;
 using GamesKeystoneFramework.MultiPlaySystem;
-using GamesKeystoneFramework.MethodSupport;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class GameManager : MultiPlayManagerBase
 {
@@ -122,6 +119,7 @@ public class GameManager : MultiPlayManagerBase
             await UniTask.WaitForSeconds(1);
             _countdownText.text = i.ToString();
         }
+        _countdownText.gameObject.SetActive(false);
         if(NetworkManager.Singleton.IsHost)
             _hostPlayerNetworkObject.gameObject.GetComponent<PlayerManager>().GameStart();
         else

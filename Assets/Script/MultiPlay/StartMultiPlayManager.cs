@@ -135,6 +135,7 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                 {
                     _connectionPhase = 0;
                     _loadingObject.SetActive(false);
+                    _buttons.HideButtons();
                     if(!joinLobbyAwaiter.GetResult())
                     {
                         _errorMessageField.SetActive(true);
@@ -189,6 +190,7 @@ public class StartMultiPlayManager : MultiPlayManagerBase
 
     public void ConnectionHost(bool isPrivate)
     {
+        _buttons.HideButtons();
         _loadingObject.SetActive(true);
         _buttons.DisableButtons();
         _connectionHost = HostConnect();
