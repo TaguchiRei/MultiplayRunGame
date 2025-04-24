@@ -933,11 +933,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 461119341}
   m_CullTransparentMesh: 1
---- !u!95 &475508436 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2019721498840256598, guid: 562c04f12e561a64b93b1c82e7b58d69, type: 3}
-  m_PrefabInstance: {fileID: 5607478808281754092}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &786142153
 GameObject:
   m_ObjectHideFlags: 0
@@ -3857,11 +3852,6 @@ Transform:
   - {fileID: 1841125964}
   m_Father: {fileID: 1693586840}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &2000736326 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 4168493466105832800, guid: 592ddefbff5b43a428d5a09d0cef44d4, type: 3}
-  m_PrefabInstance: {fileID: 2025137742}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2025137742
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3870,10 +3860,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3496724645939955044, guid: 592ddefbff5b43a428d5a09d0cef44d4, type: 3}
-      propertyPath: _animator
-      value: 
-      objectReference: {fileID: 2000736326}
     - target: {fileID: 3496724645939955044, guid: 592ddefbff5b43a428d5a09d0cef44d4, type: 3}
       propertyPath: _inputManager
       value: 
@@ -4101,10 +4087,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1241921845354582490, guid: 562c04f12e561a64b93b1c82e7b58d69, type: 3}
-      propertyPath: _animator
-      value: 
-      objectReference: {fileID: 475508436}
     - target: {fileID: 1241921845354582490, guid: 562c04f12e561a64b93b1c82e7b58d69, type: 3}
       propertyPath: _inputManager
       value: 

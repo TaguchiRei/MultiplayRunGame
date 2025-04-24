@@ -1,19 +1,26 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class ClientMultiAnimator : MonoBehaviour
+public class ClientMultiAnimator : NetworkBehaviour
 {
     [SerializeField] private Animator animator;
 
     [ServerRpc(RequireOwnership = false)]
-    public void AnimationUpdateBool(int hash, bool value)
+    public void AnimationUpdateBoolServerRPC(int hash, bool value)
     {
+        Debug.Log("adf");
         animator.SetBool(hash, true);
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void AnimationUpdateFloat(int hash, int value)
+    public void AnimationUpdateFloatServerRPC(int hash, float value)
     {
         animator.SetFloat(hash, value);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void AnimationUpdateTriggerServerRPC(int hash)
+    {
+        animator.SetTrigger(hash);
     }
 }

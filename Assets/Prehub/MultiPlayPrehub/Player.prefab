@@ -1025,6 +1025,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 8461824911823422742}
   _inputManager: {fileID: 0}
+  _animator: {fileID: 4168493466105832800}
+  _clientMultiAnimator: {fileID: 0}
   SlowMotion: 0
 --- !u!114 &2001563684389590175
 MonoBehaviour:
