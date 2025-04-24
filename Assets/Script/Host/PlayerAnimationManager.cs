@@ -1,5 +1,7 @@
 using System;
 using GamesKeystoneFramework.Attributes;
+using Unity.Netcode;
+using Unity.Netcode.Components;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -14,17 +16,16 @@ public class PlayerAnimationManager : MonoBehaviour
     [SerializeField] GameObject _player;
     
     [SerializeField] InputManager _inputManager;
-    private Animator _animator;
+    [SerializeField] private Animator _animator;
     
     [ReadOnlyInInspector] public bool SlowMotion;
 
-    private void Start()
-    {
-        _animator = _player.GetComponent<Animator>();
-    }
+    private NetworkAnimator _networkAnimator;
+    
 
     public void AnimationStart()
     {
+        _animator = _player.GetComponent<Animator>();
         _animator.SetBool(Move, true);
         _animator.SetBool(Run, true);
         _animator.SetFloat(FB, 1);
@@ -40,6 +41,7 @@ public class PlayerAnimationManager : MonoBehaviour
     {
         _animator.SetFloat(FB, 1);
         _animator.SetFloat(LR, moveVector.x);
+        Debug.Log("Move");
     }
 
     private void OnMoveEnd()

@@ -17,6 +17,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private CameraScript _cameraScript;
     
     private Vector3 _moveDirection = Vector3.zero;
+    private float _moveLR;
 
     private bool _jump;
     private bool _onGround;
@@ -34,10 +35,14 @@ public class PlayerManager : MonoBehaviour
     public void GameStart()
     {
         Debug.Log($"Game Started{gameObject.name}");
+        Debug.Log($"networkObject : {networkObject.IsOwner}");
         _animationManager.AnimationStart();
         _cameraScript.SetCamera(gameObject);
         _gameStarted = true;
+        
         _moveDirection = new Vector3(0, 0, 10);
+        _moveLR = 0;
+        
         _inputManager.OnMove += Move;
         _inputManager.OnJump += Jump;
         _inputManager.OnJumpEnd += JumpEnd;
@@ -49,24 +54,25 @@ public class PlayerManager : MonoBehaviour
         {
             _isHost = false;
         }
+        _inputManager.GameStart();
     }
     
     private void FixedUpdate()
     {
         if (networkObject.IsOwner && _gameStarted)
         {
-            _rigidbody.linearVelocity = new Vector3(_moveDirection.x, _rigidbody.linearVelocity.y, _moveDirection.z);
+            _rigidbody.linearVelocity = new Vector3(_moveLR, _rigidbody.linearVelocity.y, _moveDirection.z);
         }
     }
 
     private void Move(Vector2 inputDirection)
     {
-        _moveDirection.x = inputDirection.x * _playerData.sideMoveSpeed;
+        _moveLR = inputDirection.x;
     }
 
     private void MoveEnd()
     {
-        _moveDirection.x = 0;
+        _moveLR = 0;
     }
 
     private void Jump()

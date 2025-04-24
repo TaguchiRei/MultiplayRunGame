@@ -1,4 +1,5 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
@@ -10,7 +11,7 @@ public class InputManager : MonoBehaviour
     
     MultiPlayerInputActions _inputActions;
 
-    private void Start()
+    public void GameStart()
     {
         _inputActions = new MultiPlayerInputActions();
         
