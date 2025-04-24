@@ -35,18 +35,26 @@ public class StartMultiPlayManager : MultiPlayManagerBase
     
     [SerializeField] GameManager _gameManager;
 
+    private float _checkLateTimer;
+
     public void Awake()
     {
+        _checkLateTimer = 0;
         _buttons.DisableButtons();
         _errorMessage = _errorMessageField.GetComponentInChildren<TextMeshProUGUI>();
         _loadingObject.SetActive(true);
         _connectionPhase = 1;
         _initialize = ServicesInitialize();
+        _buttons.SearchConnectionField.onEndEdit.AddListener(ConnectionClient);
         Debug.Log("MultiPlayManagerBase.Awake");
     }
 
     void Update()
     {
+        _checkLateTimer += Time.deltaTime;
+        if(_checkLateTimer > 1) return;
+        _checkLateTimer = 0;
+        
         switch (_connectionPhase)
         {
             case 1://初期化を行う。
@@ -78,6 +86,7 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                     _loadingObject.SetActive(false);
                     if (result)
                     {
+                        Debug.Log($"LobbyID : {_joinedLobby.Id}");
                         _connectionPhase = 0;
                         //-------------------------ゲーム開始処理をここに記述-------------------------------
                         _gameManager.enabled = true;
@@ -104,6 +113,7 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                         //参加可能なロビーを探して可能なものの中からランダムで参加する。
                         var canJoinLobbies = result.Item2.Where((l) => !l.IsLocked).ToList();
                         var joinLobby = canJoinLobbies[Random.Range(0, canJoinLobbies.Count)];
+                        Debug.Log($"joinLobbyID : {joinLobby.Id}");
                         _connectionClient = ClientConnect(joinLobby);
                     }
                     else
@@ -132,7 +142,6 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                     }
                     else
                     {
-                        Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa");
                         _gameManager.enabled = true;
                         _gameManager.ClientConnection();
                         gameObject.SetActive(false);
@@ -154,10 +163,7 @@ public class StartMultiPlayManager : MultiPlayManagerBase
                     {
                         _loadingObject.SetActive(false);
                         _errorMessageField.SetActive(true);
-                        if (!result.Item2.IsLocked)
-                            _errorMessage.text = "指定されたルームが見つかりませんでした。　\n 接続コードを見直してください";
-                        else
-                            _errorMessage.text = "指定されたルームは次のいずれかの理由で参加不可です。　/n既に参加者がいる　作成直後のため初期化が完了していない";
+                        _errorMessage.text = "指定されたルームが見つかりませんでした。　\n 接続コードを見直してください";
                     }
                 }
                 break;

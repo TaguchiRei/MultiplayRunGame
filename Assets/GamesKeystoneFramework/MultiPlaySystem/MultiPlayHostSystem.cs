@@ -15,7 +15,7 @@ namespace GamesKeystoneFramework.MultiPlaySystem
         /// <summary>
         /// ロビーを作成する際に使用するメソッド。
         /// </summary>
-        public async UniTask<bool> CreateLobby(LobbyData lobbyData)
+        public async UniTask<(bool,Lobby)> CreateLobby(LobbyData lobbyData)
         {
                 //Relayの割り当て
                 var allocation = await RelayService.Instance.CreateAllocationAsync(lobbyData.MaxPlayers);
@@ -39,13 +39,13 @@ namespace GamesKeystoneFramework.MultiPlaySystem
                 }
 
                 //ロビー作成
-                await LobbyService.Instance.CreateLobbyAsync
+                var joinLobby = await LobbyService.Instance.CreateLobbyAsync
                     (lobbyData.LobbyName, lobbyData.MaxPlayers, createLobbyOptions);
                 
                 //Relayの接続設定
                 var relayServerData = allocation.ToRelayServerData("dtls");
                 NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
-                return true;
+                return (true, joinLobby);
         }
 
         public bool ConnectionHost()

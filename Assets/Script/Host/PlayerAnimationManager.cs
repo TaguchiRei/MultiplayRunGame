@@ -41,11 +41,13 @@ public class PlayerAnimationManager : MonoBehaviour
 
     public void StartJump()
     {
+        SlowMotion = true;
         _animator.SetBool(Jump, true);
     }
 
     public void EndJump()
     {
+        SlowMotion = false;
         _animator.SetBool(Jump, false);
     }
 }

@@ -33,7 +33,7 @@ namespace GamesKeystoneFramework.MultiPlaySystem
         /// </summary>
         public static QueryLobbiesOptions QueryLobbiesOptions;
 
-        private Lobby _joinedLobby;
+        protected Lobby _joinedLobby;
         
         /// <summary>
         /// ホストする際にサービスを初期化する。
@@ -96,11 +96,12 @@ namespace GamesKeystoneFramework.MultiPlaySystem
             if(!CanMultiPlay) return false;
 
             var lobbySetting = await _systemClass.MultiPlayHostSystem.CreateLobby(lobbyData);
-            if (!lobbySetting)
+            if (!lobbySetting.Item1)
             {
                 Debug.Log("HostConnect Failed");
                 return false;
             }
+            _joinedLobby = lobbySetting.Item2;
 
             if (_systemClass.MultiPlayHostSystem.ConnectionHost())
             {
