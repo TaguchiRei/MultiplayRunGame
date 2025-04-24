@@ -27,9 +27,13 @@ public class PlayerManager : MonoBehaviour
 
     private bool _gameStarted;
 
+    private bool _jumping;
+    private bool _jumpEnd;
+    
     private void Start()
     {
         _gameStarted = false;
+        _onGround = true;
     }
 
     public void GameStart()
@@ -44,6 +48,7 @@ public class PlayerManager : MonoBehaviour
         _moveLR = 0;
         
         _inputManager.OnMove += Move;
+        _inputManager.OnMoveEnd += MoveEnd;
         _inputManager.OnJump += Jump;
         _inputManager.OnJumpEnd += JumpEnd;
         if (NetworkManager.Singleton.IsHost)
@@ -61,7 +66,26 @@ public class PlayerManager : MonoBehaviour
     {
         if (networkObject.IsOwner && _gameStarted)
         {
-            _rigidbody.linearVelocity = new Vector3(_moveLR, _rigidbody.linearVelocity.y, _moveDirection.z);
+            _rigidbody.linearVelocity = 
+                new Vector3(_moveLR * _playerData.sideMoveSpeed, _rigidbody.linearVelocity.y, _moveDirection.z);
+        }
+    }
+
+    private void Update()
+    {
+        if (_jumping)
+        {
+            _rigidbody.AddForce(Vector3.up * _playerData.jumpForce, ForceMode.Impulse);
+            _jumping = false;
+        }
+
+        if (_jumpEnd)
+        {
+            _rigidbody.linearVelocity = new Vector3(
+                _rigidbody.linearVelocity.x,
+                _rigidbody.linearVelocity.y / 2,
+                _rigidbody.linearVelocity.z);
+            _jumpEnd = false;
         }
     }
 
@@ -77,20 +101,17 @@ public class PlayerManager : MonoBehaviour
 
     private void Jump()
     {
-        if (!_onGround || !networkObject.IsOwner) return;
+        Debug.Log($"Jump : {_onGround}");
+        if (!_onGround) return;
         _onGround = false;
-        _rigidbody.AddForce(0,_playerData.jumpForce,0, ForceMode.Impulse);
+        _jumping = true;
         _animationManager.StartJump();
     }
 
     private void JumpEnd()
     {
-        if (!(_rigidbody.linearVelocity.y > 0) || networkObject.IsOwner) return;
-        
-        _rigidbody.linearVelocity = new Vector3(
-            _rigidbody.linearVelocity.x,
-            _rigidbody.linearVelocity.y / 2,
-            _rigidbody.linearVelocity.z);
+        if (_rigidbody.linearVelocity.y < 0) return;
+        _jumpEnd = true;
         _animationManager.EndJump();
     }
 
@@ -100,7 +121,6 @@ public class PlayerManager : MonoBehaviour
         {
             Debug.Log("OnGround");
             _onGround = true;
-            _animationManager.EndJump();
         }
     }
 

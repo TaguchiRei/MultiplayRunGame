@@ -818,9 +818,9 @@ MonoBehaviour:
   _inputManager: {fileID: 0}
   _multiPlayRadioTower: {fileID: 0}
   _playerData:
-    moveSpeed: 10
-    sideMoveSpeed: 0
-    jumpForce: 5
+    moveSpeed: 20
+    sideMoveSpeed: 10
+    jumpForce: 20
   _cameraScript: {fileID: 0}
 --- !u!114 &2866297058277882246
 MonoBehaviour:
@@ -939,6 +939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc7f4615a91daa4faa24246dea16043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   animator: {fileID: 2019721498840256598}
 --- !u!1 &2681350265999399177
 GameObject:

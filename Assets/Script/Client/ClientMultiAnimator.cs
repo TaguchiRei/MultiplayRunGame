@@ -8,7 +8,6 @@ public class ClientMultiAnimator : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void AnimationUpdateBoolServerRPC(int hash, bool value)
     {
-        Debug.Log("adf");
         animator.SetBool(hash, true);
     }
 

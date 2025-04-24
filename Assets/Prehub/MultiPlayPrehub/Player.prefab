@@ -1173,7 +1173,7 @@ MonoBehaviour:
   _playerData:
     moveSpeed: 20
     sideMoveSpeed: 10
-    jumpForce: 5
+    jumpForce: 20
   _cameraScript: {fileID: 0}
 --- !u!114 &637289252179674776
 MonoBehaviour:

@@ -71,15 +71,6 @@ public class PlayerAnimationManager : MonoBehaviour
 
     public void StartJump()
     {
-        SlowMotion = true;
-        _animator.SetTrigger(Jump);
-        if (!NetworkManager.Singleton.IsServer)
-            _clientMultiAnimator.AnimationUpdateTriggerServerRPC(Jump);
-    }
-
-    public void EndJump()
-    {
-        SlowMotion = false;
         _animator.SetTrigger(Jump);
         if (!NetworkManager.Singleton.IsServer)
             _clientMultiAnimator.AnimationUpdateTriggerServerRPC(Jump);

@@ -14,8 +14,8 @@ using Random = UnityEngine.Random;
 public class StartMultiPlayManager : MultiPlayManagerBase
 {
     private static readonly int ConnectionSelect = Animator.StringToHash("ConnectionSelect");
-    private static readonly int ClientConncetion = Animator.StringToHash("ClientConnection");
-    private static readonly int HostConncetion = Animator.StringToHash("HostConnection");
+    private static readonly int ClientConnection = Animator.StringToHash("ClientConnection");
+    private static readonly int HostConnection = Animator.StringToHash("HostConnection");
     [SerializeField] private GameObject _loadingObject;
 
     [SerializeField] private GameObject _errorMessageField;
@@ -178,12 +178,12 @@ public class StartMultiPlayManager : MultiPlayManagerBase
 
     public void SelectClientMode()
     {
-        _StartCanvasAnimator.SetTrigger(ClientConncetion);
+        _StartCanvasAnimator.SetTrigger(ClientConnection);
     }
 
     public void SelectHostMode()
     {
-        _StartCanvasAnimator.SetTrigger(HostConncetion);
+        _StartCanvasAnimator.SetTrigger(HostConnection);
     }
 
 
@@ -256,6 +256,16 @@ public class StartMultiPlayManager : MultiPlayManagerBase
             SearchConnectionField.enabled = false;
             PrivateConnectionButton.enabled = false;
             PublicConnectionButton.enabled = false;
+        }
+
+        public void HideButtons()
+        {
+            RunnnerStartButton.gameObject.SetActive(false);
+            SupporterStartButton.gameObject.SetActive(false);
+            RandomConnectionButton.gameObject.SetActive(false);
+            SearchConnectionField.gameObject.SetActive(false);
+            PrivateConnectionButton.gameObject.SetActive(false);
+            PublicConnectionButton.gameObject.SetActive(false);
         }
     }
 }
