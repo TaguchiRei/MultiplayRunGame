@@ -119,8 +119,8 @@ public class GameManager : MultiPlayManagerBase
         _countdownText.gameObject.SetActive(true);
         for (int i = 5; i >= 0; i--)
         {
-            _countdownText.text = i.ToString();
             await UniTask.WaitForSeconds(1);
+            _countdownText.text = i.ToString();
         }
         if(NetworkManager.Singleton.IsHost)
             _hostPlayerNetworkObject.gameObject.GetComponent<PlayerManager>().GameStart();
