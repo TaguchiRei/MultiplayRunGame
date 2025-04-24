@@ -20,7 +20,6 @@ public class PlayerManager : MonoBehaviour
     private float _moveLR;
     private bool _jump;
     private bool _onGround;
-    private bool _isHost;
     private bool _gameStarted;
     private bool _jumping;
 
@@ -50,10 +49,7 @@ public class PlayerManager : MonoBehaviour
         _inputManager.OnMove += Move;
         _inputManager.OnMoveEnd += MoveEnd;
         _inputManager.OnJump += Jump;
-        _isHost = NetworkManager.Singleton.IsHost;
         _inputManager.GameStart();
-        if (NetworkManager.Singleton.IsHost && !networkObject.IsOwner)
-            _clientModel.transform.localPosition = new Vector3(0, 0, 17);
     }
 
     private void FixedUpdate()
