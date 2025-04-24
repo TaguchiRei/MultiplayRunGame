@@ -22,7 +22,6 @@ public class PlayerAnimationManager : MonoBehaviour
     [ReadOnlyInInspector] public bool SlowMotion;
 
     private NetworkAnimator _networkAnimator;
-    
 
     public void AnimationStart()
     {
