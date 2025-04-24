@@ -28,7 +28,6 @@ public class PlayerManager : MonoBehaviour
     private bool _gameStarted;
 
     private bool _jumping;
-    private bool _jumpEnd;
     
     private void Start()
     {
@@ -50,15 +49,7 @@ public class PlayerManager : MonoBehaviour
         _inputManager.OnMove += Move;
         _inputManager.OnMoveEnd += MoveEnd;
         _inputManager.OnJump += Jump;
-        _inputManager.OnJumpEnd += JumpEnd;
-        if (NetworkManager.Singleton.IsHost)
-        {
-            _isHost = true;
-        }
-        else
-        {
-            _isHost = false;
-        }
+        _isHost = NetworkManager.Singleton.IsHost;
         _inputManager.GameStart();
     }
     
@@ -77,15 +68,6 @@ public class PlayerManager : MonoBehaviour
         {
             _rigidbody.AddForce(Vector3.up * _playerData.jumpForce, ForceMode.Impulse);
             _jumping = false;
-        }
-
-        if (_jumpEnd)
-        {
-            _rigidbody.linearVelocity = new Vector3(
-                _rigidbody.linearVelocity.x,
-                _rigidbody.linearVelocity.y / 2,
-                _rigidbody.linearVelocity.z);
-            _jumpEnd = false;
         }
     }
 
@@ -108,18 +90,12 @@ public class PlayerManager : MonoBehaviour
         _animationManager.StartJump();
     }
 
-    private void JumpEnd()
-    {
-        if (_rigidbody.linearVelocity.y < 0) return;
-        _jumpEnd = true;
-        _animationManager.EndJump();
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground") && !_onGround)
         {
             Debug.Log("OnGround");
+            _animationManager.EndJump();
             _onGround = true;
         }
     }

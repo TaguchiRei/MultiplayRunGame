@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class PlayerAnimationManager : MonoBehaviour
 {
-    private static readonly int Move = Animator.StringToHash("Move");
     private static readonly int Run = Animator.StringToHash("Run");
     private static readonly int Jump = Animator.StringToHash("Jump");
     private static readonly int FB = Animator.StringToHash("FB");
@@ -28,13 +27,11 @@ public class PlayerAnimationManager : MonoBehaviour
     public void AnimationStart()
     {
         _animator = _player.GetComponent<Animator>();
-        _animator.SetBool(Move, true);
         _animator.SetBool(Run, true);
         _animator.SetFloat(FB, 1);
 
         if (!NetworkManager.Singleton.IsServer)
         {
-            _clientMultiAnimator.AnimationUpdateBoolServerRPC(Move, true);
             _clientMultiAnimator.AnimationUpdateBoolServerRPC(Run, true);
             _clientMultiAnimator.AnimationUpdateFloatServerRPC(FB, 1);
         }
@@ -71,8 +68,15 @@ public class PlayerAnimationManager : MonoBehaviour
 
     public void StartJump()
     {
-        _animator.SetTrigger(Jump);
+        _animator.SetBool(Jump,true);
         if (!NetworkManager.Singleton.IsServer)
-            _clientMultiAnimator.AnimationUpdateTriggerServerRPC(Jump);
+            _clientMultiAnimator.AnimationUpdateBoolServerRPC(Jump, true);
+    }
+
+    public void EndJump()
+    {
+        _animator.SetBool(Jump,false);
+        if(!NetworkManager.Singleton.IsServer)
+            _clientMultiAnimator.AnimationUpdateBoolServerRPC(Jump, false);
     }
 }
