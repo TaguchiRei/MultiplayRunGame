@@ -966,8 +966,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7699294034568059058}
   m_Father: {fileID: 0}
@@ -1161,8 +1161,8 @@ MonoBehaviour:
     sideMoveSpeed: 10
     jumpForce: 30
   _cameraScript: {fileID: 0}
-  _defaultGravity: {x: 0, y: -10, z: 0}
-  _fallingGravity: {x: 0, y: -40, z: 0}
+  _defaultGravity: {x: 0, y: -40, z: 0}
+  _fallingGravity: {x: 0, y: -60, z: 0}
   _hostTransform: {fileID: 0}
   _clientModel: {fileID: 0}
 --- !u!114 &637289252179674776

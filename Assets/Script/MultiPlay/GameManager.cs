@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using GamesKeystoneFramework.Attributes;
 using GamesKeystoneFramework.MultiPlaySystem;
@@ -18,6 +19,10 @@ public class GameManager : MultiPlayManagerBase
 
     
     private bool _started = false;
+
+    private int _score;
+    private int _hitPoints;
+    
     
     /// <summary>
     /// 直近のジャンプのタイミング。
@@ -30,7 +35,13 @@ public class GameManager : MultiPlayManagerBase
         radioTower.OnMultiPlayDataReceived += MethodInvoker;
         inGameState = InGameState.Waiting;
     }
-    
+
+    public void Start()
+    {
+        _score = 0;
+        _hitPoints = 5;
+    }
+
     /// <summary>
     /// クライアント側で呼ばれる
     /// </summary>
@@ -58,17 +69,24 @@ public class GameManager : MultiPlayManagerBase
         if(!_started)return;
     }
 
-    private void HostJump()
+    private void GetScore()
     {
-        //ジャンプした際にジャストかどうかの判定を行うプログラムを入れる
+        Debug.Log("Add Score");
+        _score++;
     }
 
-    private void ClientJump()
+    private void Damage()
     {
-        
+        Debug.Log("Damage");
+        _hitPoints--;
     }
 
-    private void MethodInvoker(MultiPlayData data ,int num)
+    public void Dead()
+    {
+        Debug.Log("Dead");
+    }
+
+    public void MethodInvoker(MultiPlayData data ,int num)
     {
         Debug.Log("Invoker");
         switch (num)
@@ -98,6 +116,12 @@ public class GameManager : MultiPlayManagerBase
                 _ = StartCountDown();
                 if(NetworkManager.Singleton.IsHost)
                     radioTower.Send(2);
+                break;
+            case 3://両者
+                GetScore();
+                break;
+            case 4:
+                Damage();
                 break;
             default:
                 break;

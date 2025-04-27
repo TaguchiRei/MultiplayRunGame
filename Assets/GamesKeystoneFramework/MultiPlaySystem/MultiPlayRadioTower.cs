@@ -43,6 +43,13 @@ namespace GamesKeystoneFramework.MultiPlaySystem
             OnMultiPlayDataReceived?.Invoke(multiPlayData,methodNum);
         }
 
+        [ClientRpc(RequireOwnership = false)]
+        public void SendDataToBothClientRPC(MultiPlayData multiPlayData, int methodNum)
+        {
+            Debug.Log(multiPlayData.Value);
+            OnMultiPlayDataReceived?.Invoke(multiPlayData,methodNum);
+        }
+
         /// <summary>
         /// サーバーにデータを送信
         /// クライアント側で呼び出すとサーバー側で実行される

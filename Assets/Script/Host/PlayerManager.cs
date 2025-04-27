@@ -15,6 +15,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField, Grouping] private PlayerData _playerData;
 
     [SerializeField] private CameraScript _cameraScript;
+    
+    private GameManager _gameManager;
 
     private Vector3 _moveDirection = Vector3.zero;
     private float _moveLR;
@@ -33,6 +35,7 @@ public class PlayerManager : MonoBehaviour
     {
         _gameStarted = false;
         _onGround = true;
+        _gameManager = FindAnyObjectByType<GameManager>();
     }
 
     public void GameStart()
@@ -51,7 +54,8 @@ public class PlayerManager : MonoBehaviour
         _inputManager.OnJump += Jump;
         _inputManager.GameStart();
     }
-
+    
+    
     private void FixedUpdate()
     {
         if (networkObject.IsOwner && _gameStarted)
@@ -108,6 +112,21 @@ public class PlayerManager : MonoBehaviour
             Debug.Log("OnGround");
             _animationManager.EndJump();
             _onGround = true;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        var isHost = NetworkManager.Singleton.IsHost;
+        if (other.gameObject.CompareTag("HostBarrier"))
+        {
+            _multiPlayRadioTower.Send(isHost ? 3 : 4);
+            _gameManager.MethodInvoker(default,isHost ? 3 : 4);
+        }
+        else if (other.gameObject.CompareTag("ClientBarrier"))
+        {
+            _multiPlayRadioTower.Send(!isHost ? 3 : 4);
+            _gameManager.MethodInvoker(default,isHost ? 3 : 4);
         }
     }
 
