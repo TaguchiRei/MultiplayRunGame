@@ -24,6 +24,7 @@ public class PlayerManager : MonoBehaviour
     private bool _onGround;
     private bool _gameStarted;
     private bool _jumping;
+    private bool _isHost;
 
     [SerializeField] private Vector3 _defaultGravity;
     [SerializeField] private Vector3 _fallingGravity;
@@ -45,6 +46,7 @@ public class PlayerManager : MonoBehaviour
         _animationManager.AnimationStart();
         _cameraScript.SetCamera(gameObject);
         _gameStarted = true;
+        _isHost = NetworkManager.Singleton.IsHost;
 
         _moveDirection = new Vector3(0, 0, _playerData.moveSpeed);
         _moveLR = 0;
@@ -60,7 +62,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (networkObject.IsOwner && _gameStarted)
         {
-            if(NetworkManager.Singleton.IsHost)
+            if(_isHost)
             {
                 _rigidbody.linearVelocity =
                 new Vector3(_moveLR * _playerData.sideMoveSpeed, _rigidbody.linearVelocity.y, _moveDirection.z);
@@ -117,16 +119,15 @@ public class PlayerManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        var isHost = NetworkManager.Singleton.IsHost;
         if (other.gameObject.CompareTag("HostBarrier"))
         {
-            _multiPlayRadioTower.Send(isHost ? 3 : 4);
-            _gameManager.MethodInvoker(default,isHost ? 3 : 4);
+            _multiPlayRadioTower.Send(_isHost ? 3 : 4);
+            _gameManager.MethodInvoker(default,_isHost ? 3 : 4);
         }
         else if (other.gameObject.CompareTag("ClientBarrier"))
         {
-            _multiPlayRadioTower.Send(!isHost ? 3 : 4);
-            _gameManager.MethodInvoker(default,isHost ? 3 : 4);
+            _multiPlayRadioTower.Send(!_isHost ? 3 : 4);
+            _gameManager.MethodInvoker(default,!_isHost ? 3 : 4);
         }
     }
 
