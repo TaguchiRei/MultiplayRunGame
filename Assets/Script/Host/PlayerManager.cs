@@ -56,28 +56,6 @@ public class PlayerManager : MonoBehaviour
         _inputManager.OnJump += Jump;
         _inputManager.GameStart();
     }
-    
-    
-    private void FixedUpdate()
-    {
-        if (networkObject.IsOwner && _gameStarted)
-        {
-            if(_isHost)
-            {
-                _rigidbody.linearVelocity =
-                new Vector3(_moveLR * _playerData.sideMoveSpeed, _rigidbody.linearVelocity.y, _moveDirection.z);
-            }
-            else
-            {
-                _rigidbody.MovePosition(new Vector3(transform.position.x , transform.position.y, _hostTransform.position.z));
-                _rigidbody.linearVelocity = 
-                    new Vector3(_moveLR * _playerData.sideMoveSpeed, _rigidbody.linearVelocity.y, 0);
-            }
-        }
-
-        _rigidbody.AddForce(_rigidbody.linearVelocity.y >= 20 ? _defaultGravity : _fallingGravity);
-        
-    }
 
     private void Update()
     {
@@ -119,12 +97,12 @@ public class PlayerManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("HostBarrier"))
+        if (other.gameObject.CompareTag("HostBarrier") && NetworkManager.Singleton.IsHost)
         {
             _multiPlayRadioTower.Send(_isHost ? 3 : 4);
             _gameManager.MethodInvoker(default,_isHost ? 3 : 4);
         }
-        else if (other.gameObject.CompareTag("ClientBarrier"))
+        else if (other.gameObject.CompareTag("ClientBarrier") && NetworkManager.Singleton.IsClient)
         {
             _multiPlayRadioTower.Send(!_isHost ? 3 : 4);
             _gameManager.MethodInvoker(default,!_isHost ? 3 : 4);

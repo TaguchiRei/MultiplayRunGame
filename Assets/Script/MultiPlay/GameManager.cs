@@ -16,6 +16,9 @@ public class GameManager : MultiPlayManagerBase
     [SerializeField, Grouping] private NetworkObject _clientPlayerNetworkObject;
     
     [SerializeField] TextMeshProUGUI _countdownText;
+    
+    [SerializeField] private Animator _leftEffect;
+    [SerializeField] private Animator _rightEffect;
 
     
     private bool _started = false;
