@@ -30,7 +30,6 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Vector3 _fallingGravity;
     
     [SerializeField] Transform _hostTransform;
-    [SerializeField] private GameObject _clientModel;
 
     private void Start()
     {
