@@ -12,6 +12,9 @@ namespace GamesKeystoneFramework.Attributes
     {
     }
 
+    /// <summary>
+    /// インスペクター上で複数要素を持つ構造体をたためるようにする
+    /// </summary>
     public class GroupingAttribute : PropertyAttribute
     {
     }
@@ -39,10 +42,10 @@ namespace GamesKeystoneFramework.Attributes
 
     #endregion
 
-    #region Highlight
+    #region Grouping
 
     [CustomPropertyDrawer(typeof(GroupingAttribute))]
-    public class HighlightDrawer : PropertyDrawer
+    public class GroupingDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
