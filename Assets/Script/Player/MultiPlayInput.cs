@@ -3,7 +3,6 @@ using GamesKeystoneFramework.Attributes;
 using GamesKeystoneFramework.MultiPlaySystem;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class MultiPlayInput : MonoBehaviour
 {
@@ -33,21 +32,35 @@ public class MultiPlayInput : MonoBehaviour
 
     public void GameStart()
     {
-        Debug.Log("---------------GameStart----------------------");
-        Debug.Log(NetworkManager.Singleton.IsHost);
-        Debug.Log(GetComponent<NetworkObject>().IsOwner);
         _multiPlayNeedComponents.MultiPlayAnimation
             .AnimationUpdateBoolServerRpc(Run, true);
         _multiPlayNeedComponents.MultiPlayAnimation
             .AnimationUpdateFloatServerRpc(FB, 1f);
 
         _inputManager.OnMove += MoveDirectionUpdate;
+        _inputManager.OnMoveEnd += StopMovement;
     }
 
+    /// <summary>
+    /// 移動に使用する
+    /// </summary>
+    /// <param name="inputVector"></param>
     private void MoveDirectionUpdate(Vector2 inputVector)
     {
+        Debug.Log("Move");
         _multiPlayNeedComponents.MultiPlayAnimation
             .AnimationUpdateFloatServerRpc(LR, inputVector.x);
+        _rigidbody.linearVelocity = new Vector3(inputVector.x, 0, 0);
+    }
+
+    /// <summary>
+    /// 移動を止めるために使用する
+    /// </summary>
+    private void StopMovement()
+    {
+        _multiPlayNeedComponents.MultiPlayAnimation
+            .AnimationUpdateFloatServerRpc(LR, 0);
+        _rigidbody.linearVelocity = Vector3.zero;
     }
     
 
