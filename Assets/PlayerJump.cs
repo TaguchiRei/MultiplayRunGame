@@ -6,9 +6,9 @@ public class PlayerJump : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (anim != null)
+        if (anim == null)
         {
-            anim = animator.GetComponent<MultiPlayInput>();
+            anim = animator.gameObject.transform.root.GetComponent<MultiPlayInput>();
             Debug.Log("MultiPlayAnimation Set");
         }
     }
@@ -17,6 +17,11 @@ public class PlayerJump : StateMachineBehaviour
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         float progress = stateInfo.normalizedTime;
+        if (anim == null)
+        {
+            Debug.Log("Null");
+            return;
+        }
         if (progress > 0.5f && anim.OnGround)
         {
             animator.speed = 0.1f;

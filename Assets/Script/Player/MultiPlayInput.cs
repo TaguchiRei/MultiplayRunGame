@@ -15,6 +15,7 @@ public class MultiPlayInput : MonoBehaviour
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private InputManager _inputManager;
 
+    [SerializeField] private float _moveSpeed;
     [SerializeField] private float _jumpForce;
 
     [SerializeField] private Vector3 _defaultGravity;
@@ -27,7 +28,7 @@ public class MultiPlayInput : MonoBehaviour
 
     public bool OnGround
     {
-        get { return _onGround; }
+        get => _onGround;
     }
 
     private void Start()
@@ -35,6 +36,19 @@ public class MultiPlayInput : MonoBehaviour
         _gameManager = FindAnyObjectByType<GameManager>();
         _gameStarted = false;
         _onGround = true;
+    }
+
+    private void FixedUpdate()
+    {
+        if(!_gameStarted) return;
+        if (_rigidbody.linearVelocity.y > 2)
+        {
+            _rigidbody.AddForce(_defaultGravity, ForceMode.Acceleration);
+        }
+        else
+        {
+            _rigidbody.AddForce(_fallingGravity, ForceMode.Acceleration);
+        }
     }
 
     public void GameStart()
@@ -46,6 +60,9 @@ public class MultiPlayInput : MonoBehaviour
 
         _inputManager.OnMove += MoveDirectionUpdate;
         _inputManager.OnMoveEnd += StopMovement;
+        _inputManager.OnJump += JumpInput;
+        
+        _gameStarted = true;
     }
 
     /// <summary>
@@ -57,7 +74,7 @@ public class MultiPlayInput : MonoBehaviour
         Debug.Log("Move");
         _multiPlayNeedComponents.MultiPlayAnimation
             .AnimationUpdateFloatServerRpc(LR, inputVector.x);
-        _rigidbody.linearVelocity = new Vector3(inputVector.x, 0, 0);
+        _rigidbody.linearVelocity = new Vector3(inputVector.x, 0, 0) * _moveSpeed;
     }
 
     /// <summary>
