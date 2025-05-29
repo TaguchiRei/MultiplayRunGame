@@ -12,6 +12,7 @@ public class InputManager : MonoBehaviour
 
     public void GameStart()
     {
+        Debug.Log("Input Manager Start");
         _inputActions = new MultiPlayerInputActions();
         
         _inputActions.Player.Move.performed += ctx => OnMove?.Invoke(ctx.ReadValue<Vector2>());

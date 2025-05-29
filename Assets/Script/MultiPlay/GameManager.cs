@@ -155,6 +155,7 @@ public class GameManager : MultiPlayManagerBase
         else
             _clientPlayerNetworkObject.gameObject.GetComponent<MultiPlayInput>().GameStart();
         _groundManager.GameStart();
+        _inputManager.GameStart();
         foreach (var obj in _titleObjects)
         {
             obj.SetActive(false);
