@@ -1,4 +1,3 @@
-using System;
 using Cysharp.Threading.Tasks;
 using GamesKeystoneFramework.Attributes;
 using GamesKeystoneFramework.MultiPlaySystem;
@@ -8,10 +7,11 @@ using UnityEngine;
 
 public class GameManager : MultiPlayManagerBase
 {
-    [SerializeField, ReadOnlyInInspector] InGameState inGameState;
-    [SerializeField] MultiPlayRadioTower radioTower;
-    [SerializeField] InputManager inputManager;
-    
+    [SerializeField, ReadOnlyInInspector] InGameState _inGameState;
+    [SerializeField] MultiPlayRadioTower _radioTower;
+    [SerializeField] InputManager _inputManager;
+    [SerializeField] GroundManager _groundManager;
+     
     [SerializeField, Grouping] private NetworkObject _hostPlayerNetworkObject;
     [SerializeField, Grouping] private NetworkObject _clientPlayerNetworkObject;
     
@@ -19,6 +19,8 @@ public class GameManager : MultiPlayManagerBase
     
     [SerializeField] private Animator _leftEffect;
     [SerializeField] private Animator _rightEffect;
+
+    [SerializeField] private GameObject[] _titleObjects;
 
     
     private bool _started = false;
@@ -35,8 +37,8 @@ public class GameManager : MultiPlayManagerBase
     public void HostConnection()
     {
         Debug.Log("HostConnection ManagerInitialize");
-        radioTower.OnMultiPlayDataReceived += MethodInvoker;
-        inGameState = InGameState.Waiting;
+        _radioTower.OnMultiPlayDataReceived += MethodInvoker;
+        _inGameState = InGameState.Waiting;
     }
 
     public void Start()
@@ -58,11 +60,11 @@ public class GameManager : MultiPlayManagerBase
     /// </summary>
     private async UniTask WaitSpawn()
     {
-        radioTower = FindAnyObjectByType<MultiPlayRadioTower>();
-        await UniTask.WaitUntil(() => radioTower.IsSpawned);
-        radioTower.OnMultiPlayDataReceived += MethodInvoker;
-        inGameState = InGameState.Client;
-        radioTower.Send(0);
+        _radioTower = FindAnyObjectByType<MultiPlayRadioTower>();
+        await UniTask.WaitUntil(() => _radioTower.IsSpawned);
+        _radioTower.OnMultiPlayDataReceived += MethodInvoker;
+        _inGameState = InGameState.Client;
+        _radioTower.Send(0);
     }
     
     
@@ -95,7 +97,7 @@ public class GameManager : MultiPlayManagerBase
         switch (num)
         {
             case 0://ホスト側
-                inGameState = InGameState.Connecting;
+                _inGameState = InGameState.Connecting;
                 ulong ID = 0;
                 foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
                 {
@@ -107,7 +109,7 @@ public class GameManager : MultiPlayManagerBase
                 }
                 if(ID == 0)return;
                 _clientPlayerNetworkObject.ChangeOwnership(ID);
-                radioTower.Send(1);
+                _radioTower.Send(1);
                 Debug.Log("Connecting");
                 break;
             case 1://クライアント側
@@ -118,7 +120,7 @@ public class GameManager : MultiPlayManagerBase
                 Debug.Log("StartCountDown");
                 _ = StartCountDown();
                 if(NetworkManager.Singleton.IsHost)
-                    radioTower.Send(2);
+                    _radioTower.Send(2);
                 break;
             case 3://両者
                 GetScore();
@@ -135,7 +137,7 @@ public class GameManager : MultiPlayManagerBase
     {
         await UniTask.WaitUntil(() => _clientPlayerNetworkObject.IsOwner);
         Debug.Log($"Owner Changed {_clientPlayerNetworkObject.IsOwner}");
-        radioTower.Send(2);
+        _radioTower.Send(2);
     }
 
     private async UniTask StartCountDown()
@@ -147,10 +149,16 @@ public class GameManager : MultiPlayManagerBase
             _countdownText.text = i.ToString();
         }
         _countdownText.gameObject.SetActive(false);
+        
         if(NetworkManager.Singleton.IsHost)
-            _hostPlayerNetworkObject.gameObject.GetComponent<PlayerManager>().GameStart();
+            _hostPlayerNetworkObject.gameObject.GetComponent<MultiPlayInput>().GameStart();
         else
-            _clientPlayerNetworkObject.gameObject.GetComponent<PlayerManager>().GameStart();
+            _clientPlayerNetworkObject.gameObject.GetComponent<MultiPlayInput>().GameStart();
+        _groundManager.GameStart();
+        foreach (var obj in _titleObjects)
+        {
+            obj.SetActive(false);
+        }
     }
 
     public enum InGameState

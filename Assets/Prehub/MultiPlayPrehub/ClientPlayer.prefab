@@ -617,14 +617,13 @@ GameObject:
   - component: {fileID: 3779830927764853272}
   - component: {fileID: 2235410086641557587}
   - component: {fileID: 6682335669863698494}
-  - component: {fileID: 1241921845354582490}
   - component: {fileID: 2327496414040845759}
   - component: {fileID: 4953378246305249784}
-  - component: {fileID: 408227322977597859}
-  - component: {fileID: 8564776219503948173}
-  - component: {fileID: 2866297058277882246}
   - component: {fileID: 2600475370226833815}
-  - component: {fileID: 6099229593213577659}
+  - component: {fileID: 408227322977597859}
+  - component: {fileID: 2866297058277882246}
+  - component: {fileID: 7732686338199979197}
+  - component: {fileID: 6088769884640992512}
   m_Layer: 0
   m_Name: ClientPlayer
   m_TagString: HostPlayer
@@ -660,7 +659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2314600530
+  GlobalObjectIdHash: 623495634
   InScenePlacedSourceGlobalObjectIdHash: 2866376380
   DeferredDespawnTick: 0
   Ownership: 1
@@ -687,23 +686,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   _rigidbody: {fileID: 4953378246305249784}
---- !u!114 &1241921845354582490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2408821367601672571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1b12c76692ebbd42a05aff7e2cb1dbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 7798445614484460132}
-  _inputManager: {fileID: 0}
-  _animator: {fileID: 2019721498840256598}
-  _clientMultiAnimator: {fileID: 6099229593213577659}
-  SlowMotion: 0
 --- !u!114 &2327496414040845759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -777,6 +759,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &2600475370226833815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2408821367601672571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkRigidbodyBaseExpanded: 0
+  UseRigidBodyForMotion: 0
+  AutoUpdateKinematicState: 1
+  AutoSetKinematicOnDespawn: 1
 --- !u!136 &408227322977597859
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -800,32 +799,6 @@ CapsuleCollider:
   m_Height: 3.89
   m_Direction: 1
   m_Center: {x: 0, y: 1.93, z: 0}
---- !u!114 &8564776219503948173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2408821367601672571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69e9d44d3d398104c80640ca6f666d8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  networkObject: {fileID: 2235410086641557587}
-  _rigidbody: {fileID: 4953378246305249784}
-  _animationManager: {fileID: 1241921845354582490}
-  _inputManager: {fileID: 0}
-  _multiPlayRadioTower: {fileID: 0}
-  _playerData:
-    moveSpeed: 40
-    sideMoveSpeed: 10
-    jumpForce: 30
-  _cameraScript: {fileID: 0}
-  _defaultGravity: {x: 0, y: -40, z: 0}
-  _fallingGravity: {x: 0, y: -60, z: 0}
-  _hostTransform: {fileID: 0}
-  _clientModel: {fileID: 7798445614484460132}
 --- !u!114 &2866297058277882246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -914,7 +887,7 @@ MonoBehaviour:
   - {fileID: 7936160354944569142}
   - {fileID: 8618081088681875756}
   - {fileID: 4269970757652916730}
---- !u!114 &2600475370226833815
+--- !u!114 &7732686338199979197
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -923,28 +896,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 2408821367601672571}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Script: {fileID: 11500000, guid: 7678cd9452eaf5b46bfc03e1638aba3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  NetworkRigidbodyBaseExpanded: 0
-  UseRigidBodyForMotion: 0
-  AutoUpdateKinematicState: 1
-  AutoSetKinematicOnDespawn: 1
---- !u!114 &6099229593213577659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2408821367601672571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fc7f4615a91daa4faa24246dea16043, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
   animator: {fileID: 2019721498840256598}
+--- !u!114 &6088769884640992512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2408821367601672571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd7236571344ffb428dbf97c824f848f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _multiPlayNeedComponents:
+    NetworkObject: {fileID: 2235410086641557587}
+    MultiPlayAnimation: {fileID: 7732686338199979197}
+    MultiPlayRadioTower: {fileID: 0}
+  _rigidbody: {fileID: 4953378246305249784}
+  _inputManager: {fileID: 0}
+  _defaultGravity: {x: 0, y: -10, z: 0}
+  _fallingGravity: {x: 0, y: -50, z: 0}
 --- !u!1 &2681350265999399177
 GameObject:
   m_ObjectHideFlags: 0

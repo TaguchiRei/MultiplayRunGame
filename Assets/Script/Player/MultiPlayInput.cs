@@ -33,10 +33,13 @@ public class MultiPlayInput : MonoBehaviour
 
     public void GameStart()
     {
+        Debug.Log("---------------GameStart----------------------");
+        Debug.Log(NetworkManager.Singleton.IsHost);
+        Debug.Log(GetComponent<NetworkObject>().IsOwner);
         _multiPlayNeedComponents.MultiPlayAnimation
-            .AnimationUpdateBoolClientRpc(Run, true);
+            .AnimationUpdateBoolServerRpc(Run, true);
         _multiPlayNeedComponents.MultiPlayAnimation
-            .AnimationUpdateFloatClientRpc(FB, 1);
+            .AnimationUpdateFloatServerRpc(FB, 1f);
 
         _inputManager.OnMove += MoveDirectionUpdate;
     }
@@ -44,7 +47,7 @@ public class MultiPlayInput : MonoBehaviour
     private void MoveDirectionUpdate(Vector2 inputVector)
     {
         _multiPlayNeedComponents.MultiPlayAnimation
-            .AnimationUpdateFloatClientRpc(LR, inputVector.x);
+            .AnimationUpdateFloatServerRpc(LR, inputVector.x);
     }
     
 
