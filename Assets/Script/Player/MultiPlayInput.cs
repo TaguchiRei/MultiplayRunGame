@@ -25,6 +25,7 @@ public class MultiPlayInput : MonoBehaviour
 
     private bool _gameStarted;
     private bool _onGround;
+    private Vector3 _moveDirection;
 
     public bool OnGround
     {
@@ -49,6 +50,8 @@ public class MultiPlayInput : MonoBehaviour
         {
             _rigidbody.AddForce(_fallingGravity, ForceMode.Acceleration);
         }
+
+        _rigidbody.linearVelocity = new Vector3(_moveDirection.x, _rigidbody.linearVelocity.y, 0);
     }
 
     public void GameStart()
@@ -74,7 +77,7 @@ public class MultiPlayInput : MonoBehaviour
         Debug.Log("Move");
         _multiPlayNeedComponents.MultiPlayAnimation
             .AnimationUpdateFloatServerRpc(LR, inputVector.x);
-        _rigidbody.linearVelocity = new Vector3(inputVector.x, 0, 0) * _moveSpeed;
+        _moveDirection = new Vector3(inputVector.x, 0, 0) * _moveSpeed;
     }
 
     /// <summary>
@@ -84,7 +87,7 @@ public class MultiPlayInput : MonoBehaviour
     {
         _multiPlayNeedComponents.MultiPlayAnimation
             .AnimationUpdateFloatServerRpc(LR, 0);
-        _rigidbody.linearVelocity = Vector3.zero;
+        _moveDirection = Vector3.zero;
     }
 
     private void JumpInput()
