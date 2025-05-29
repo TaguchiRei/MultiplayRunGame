@@ -41,7 +41,7 @@ public class MultiPlayInput : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!_gameStarted) return;
+        if(!_gameStarted || !_multiPlayNeedComponents.NetworkObject.IsOwner) return;
         if (_rigidbody.linearVelocity.y > 2)
         {
             _rigidbody.AddForce(_defaultGravity, ForceMode.Acceleration);
