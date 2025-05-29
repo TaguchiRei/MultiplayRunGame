@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class PlayerJump : StateMachineBehaviour
 {
-    private PlayerAnimationManager animManager;
+    private MultiPlayInput anim;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (animManager == null)
+        if (anim != null)
         {
-            animManager = animator.gameObject.transform.parent.GetComponent<PlayerAnimationManager>();
-            Debug.Log(animManager == null);
+            anim = animator.GetComponent<MultiPlayInput>();
+            Debug.Log("MultiPlayAnimation Set");
         }
     }
 
@@ -17,7 +17,7 @@ public class PlayerJump : StateMachineBehaviour
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         float progress = stateInfo.normalizedTime;
-        if (progress > 0.5f && animManager.SlowMotion)
+        if (progress > 0.5f && anim.OnGround)
         {
             animator.speed = 0.1f;
         }
