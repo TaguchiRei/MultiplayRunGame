@@ -76,10 +76,21 @@ public class GroundManager : MonoBehaviour
         for (int i = 1; i < _groundObjects.Count; i++)
         {
             _groundObjects[i].position = _groundObjects[0].position + Vector3.forward * (i * GroundSize);
+            foreach (var wallObj in _wallObjects)
+            {
+                if (_groundObjects[i] == wallObj.TargetTransform)
+                {
+                    wallObj.WallGameObject.transform.position = _groundObjects[i].position;
+                }
+            }
         }
 
         if (_groundObjects[0].position.z < GroundSize * -1)
         {
+            if (_wallObjects[0].TargetTransform == _groundObjects[0])
+            {
+                _wallObjects.RemoveAt(0);
+            }
             _groundObjects.Add(_groundObjects[0]);
             _groundObjects.RemoveAt(0);
             if (_obstacleSpawnCounter >= _obstacleSpawnTiming)
@@ -88,7 +99,7 @@ public class GroundManager : MonoBehaviour
                 bool isWall = Random.value < 0.5f;
                 if (isWall)
                 {
-                    var obj = _obstacleInstances[0].Dequeue();
+                    GameObject obj = _obstacleInstances[0].Dequeue();
                    _wallObjects.Add(new WallObject()
                    {
                        TargetTransform = _groundObjects[0].transform,
