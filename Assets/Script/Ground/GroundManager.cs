@@ -12,9 +12,11 @@ public class GroundManager : MonoBehaviour
     [SerializeField] private int _obstacleSpawnTiming;
     [SerializeField] private GameObject[] _obstacleObjects;
     [SerializeField] private Vector3 _obstaclePool;
-
+    
+    private List<WallObject> _wallObjects;
     private List<Transform> _groundObjects;
     private Queue<GameObject>[] _obstacleInstances;
+    
     private int _obstacleSpawnCounter;
     private bool _isStarted = false;
     private const float GroundSize = 60; //グラウンドの大きさは60
@@ -48,6 +50,22 @@ public class GroundManager : MonoBehaviour
                 _obstacleInstances[i].Enqueue(obstacle);
             }
         }
+
+        for (int i = 0; i < _obstacleObjects.Length; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+               _obstacleInstances[i].Enqueue(Instantiate(_obstacleObjects[i], _obstaclePool, Quaternion.identity));
+            }
+        }
+
+        foreach (var obstacle in _obstacleObjects)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                Instantiate(obstacle, _obstaclePool, Quaternion.identity);
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -67,12 +85,28 @@ public class GroundManager : MonoBehaviour
             if (_obstacleSpawnCounter >= _obstacleSpawnTiming)
             {
                 _obstacleSpawnCounter = 0;
-                
+                bool isWall = Random.value < 0.5f;
+                if (isWall)
+                {
+                    var obj = _obstacleInstances[0].Dequeue();
+                   _wallObjects.Add(new WallObject()
+                   {
+                       TargetTransform = _groundObjects[0].transform,
+                       WallGameObject = obj
+                   }); 
+                   _obstacleInstances[0].Enqueue(obj);
+                }
             }
             else
             {
                 _obstacleSpawnCounter++;
             }
         }
+    }
+
+    private struct WallObject
+    {
+        public Transform TargetTransform;
+        public GameObject WallGameObject;
     }
 }
