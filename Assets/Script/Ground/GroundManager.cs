@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -65,7 +64,7 @@ public class GroundManager : MonoBehaviour
         {
             _groundObjects.Add(_groundObjects[0]);
             _groundObjects.RemoveAt(0);
-            if (_obstacleSpawnCounter >= _obstacleObjects.Length)
+            if (_obstacleSpawnCounter >= _obstacleSpawnTiming)
             {
                 _obstacleSpawnCounter = 0;
                 
