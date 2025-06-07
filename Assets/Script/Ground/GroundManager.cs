@@ -89,6 +89,7 @@ public class GroundManager : MonoBehaviour
         {
             if (_wallObjects[0].TargetTransform == _groundObjects[0])
             {
+                _wallObjects[0].TargetTransform.position = _obstaclePool;
                 _wallObjects.RemoveAt(0);
             }
             _groundObjects.Add(_groundObjects[0]);
