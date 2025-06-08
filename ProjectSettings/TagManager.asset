@@ -8,6 +8,7 @@ TagManager:
   - HostPlayer
   - HostBarrier
   - ClientBarrier
+  - ClientPlayer
   layers:
   - Default
   - TransparentFX
