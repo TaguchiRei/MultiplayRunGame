@@ -142,6 +142,7 @@ public class GameManager : MultiPlayManagerBase
 
     private async UniTask StartCountDown()
     {
+        _groundManager.GameStart();
         _countdownText.gameObject.SetActive(true);
         for (int i = 5; i >= 0; i--)
         {
@@ -154,7 +155,6 @@ public class GameManager : MultiPlayManagerBase
             _hostPlayerNetworkObject.gameObject.GetComponent<MultiPlayInput>().GameStart();
         else
             _clientPlayerNetworkObject.gameObject.GetComponent<MultiPlayInput>().GameStart();
-        _groundManager.GameStart();
         _inputManager.GameStart();
         foreach (var obj in _titleObjects)
         {
