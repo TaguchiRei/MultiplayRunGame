@@ -26,8 +26,7 @@ public class GameManager : MultiPlayManagerBase
 
     [SerializeField] private GameObject _hitPointGage;
     [SerializeField] private Image _hitPointGageImage;
-    [SerializeField] private Image _scoreImage;
-    [SerializeField] private Text _scoreText;
+    [SerializeField] private TextMeshProUGUI _scoreText;
 
     [SerializeField] private int _maxHitPoint = 5;
 
@@ -94,7 +93,7 @@ public class GameManager : MultiPlayManagerBase
         Debug.Log("Damage");
         _hitPoint--;
         _hitPointGageImage.DOFillAmount((float)_hitPoint / _maxHitPoint,0.5f);
-        if (_hitPoint == 0)
+        if (_hitPoint <= 0)
         {
             _radioTower.SendBoth(5);
         }
@@ -103,8 +102,8 @@ public class GameManager : MultiPlayManagerBase
     public void Dead()
     {
         Debug.Log("Dead");
-        _scoreText.text = $"Score : {_score}!";
-        _scoreImage.enabled = true;
+        _scoreText.text = $"最終スコア : {_score}!";
+        _titleObjects[0].SetActive(true);
         _scoreText.enabled = true;
     }
 
