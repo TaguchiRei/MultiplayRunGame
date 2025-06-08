@@ -31,6 +31,7 @@ public class GroundManager : MonoBehaviour
 
     private async UniTask Initialize()
     {
+        _obstacleTransforms = new ();
         var groundResult = await InstantiateAsync(_groundObject, _groundCount, Vector3.zero, Quaternion.identity);
         _groundObjects = groundResult.Select(o => o.GetComponent<Ground>()).ToList();
         _isStarted = true;
@@ -47,7 +48,15 @@ public class GroundManager : MonoBehaviour
             {
                 var obstacleObj = Instantiate(obstacle, _obstaclePool, Quaternion.identity);
                 obstacleObj.GetComponent<NetworkObject>().Spawn();
+                _obstacleTransforms.Add(obstacleObj.transform);
             }
+        }
+        //障害物をFisher-Yatesを利用してシャッフル
+        for (int i = _obstacleTransforms.Count-1; i > 0; i--)
+        {
+            int randomIndex = Random.Range(0, i + 1);
+            (_obstacleTransforms[i], _obstacleTransforms[randomIndex]) = 
+                (_obstacleTransforms[randomIndex], _obstacleTransforms[i]);
         }
     }
 
@@ -63,7 +72,7 @@ public class GroundManager : MonoBehaviour
             _groundObjects[i].gameObject.transform.position = 
                 _groundObjects[0].gameObject.transform.position + Vector3.forward * (i * GroundSize);
             //地面が障害物を保持していた場合それも移動させる
-            if (!_groundObjects[i].Obstacle)
+            if (_groundObjects[i].Obstacle != null)
             {
                 _groundObjects[i].Obstacle.position = _groundObjects[i].gameObject.transform.position;
             }
@@ -73,14 +82,16 @@ public class GroundManager : MonoBehaviour
         if (_groundObjects[0].gameObject.transform.position.z < GroundSize * -1)
         {
             //地面が障害物を保持していた場合、それを解除する
-            if (!_groundObjects[0].Obstacle)
-            {
-                _groundObjects[0].Obstacle = null;
-            }
+            _groundObjects[0].Obstacle = null;
+            
             //障害物を出現させるタイミングだった場合は障害物を地面に登録する
             if (_obstacleSpawnCounter >= _obstacleSpawnTiming)
             {
                 _obstacleSpawnCounter = 0;
+                _groundObjects[0].Obstacle = _obstacleTransforms[0];
+                var temp = _obstacleTransforms[0];
+                _obstacleTransforms.RemoveAt(0);
+                _obstacleTransforms.Add(temp);
             }
             else
             {
