@@ -34,7 +34,7 @@ namespace GamesKeystoneFramework.MultiPlaySystem
 
         public void SendBoth(int methodNum, MultiPlayData data = default)
         {
-            data.Value ??= "Send To Both";
+            data.Value = "Send To Both";
             SendDataToBothClientRPC(methodNum, data);
         }
         
