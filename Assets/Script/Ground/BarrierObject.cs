@@ -16,9 +16,7 @@ public class BarrierObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"IsHost : {NetworkManager.Singleton.IsHost}");
-        Debug.Log($"IsClient : {NetworkManager.Singleton.IsClient}");
         if(!NetworkManager.Singleton.IsHost) return;//バリアへの衝突判定はホスト側のみで行う
-        _multiPlayRadioTower.SendBoth(other.gameObject.CompareTag("HostBarrier") == _isHostBarrier ? 3 : 4);
+        _multiPlayRadioTower.SendBoth(other.gameObject.CompareTag("HostPlayer") == _isHostBarrier ? 3 : 4);
     }
 }
