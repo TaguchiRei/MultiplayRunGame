@@ -1,9 +1,11 @@
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using GamesKeystoneFramework.Attributes;
 using GamesKeystoneFramework.MultiPlaySystem;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MultiPlayManagerBase
 {
@@ -22,11 +24,16 @@ public class GameManager : MultiPlayManagerBase
 
     [SerializeField] private GameObject[] _titleObjects;
 
+    [SerializeField] private GameObject _hitPointGage;
+    [SerializeField] private Image _hitPointGageImage;
+
+    [SerializeField] private int _maxHitPoint = 5;
+
     
     private bool _started = false;
 
     private int _score;
-    private int _hitPoints;
+    private int _hitPoint;
     
     
     /// <summary>
@@ -44,7 +51,7 @@ public class GameManager : MultiPlayManagerBase
     public void Start()
     {
         _score = 0;
-        _hitPoints = 5;
+        _hitPoint = _maxHitPoint;
     }
 
     /// <summary>
@@ -83,7 +90,8 @@ public class GameManager : MultiPlayManagerBase
     private void Damage()
     {
         Debug.Log("Damage");
-        _hitPoints--;
+        _hitPoint--;
+        _hitPointGageImage.DOFillAmount((float)_hitPoint / _maxHitPoint,0);
     }
 
     public void Dead()
@@ -150,6 +158,7 @@ public class GameManager : MultiPlayManagerBase
             _countdownText.text = i.ToString();
         }
         _countdownText.gameObject.SetActive(false);
+        _hitPointGage.SetActive(true);
         
         if(NetworkManager.Singleton.IsHost)
             _hostPlayerNetworkObject.gameObject.GetComponent<MultiPlayInput>().GameStart();
