@@ -8,6 +8,7 @@ public class GroundManager : MonoBehaviour
 {
     [SerializeField, Range(1, 10)] private int _groundCount;
     [SerializeField] private float _speed;
+    [SerializeField, Range(-10, -1)] private int _groundReturnPoint;
     [SerializeField] private GameObject _groundObject;
     [SerializeField] private int _obstacleSpawnTiming;
     [SerializeField] private GameObject[] _obstacleObjects;
@@ -79,7 +80,7 @@ public class GroundManager : MonoBehaviour
         }
 
         //地面がカメラより後ろにあった場合一番奥に移動させる
-        if (_groundObjects[0].gameObject.transform.position.z < GroundSize * -1)
+        if (_groundObjects[0].gameObject.transform.position.z < GroundSize * _groundReturnPoint)
         {
             //地面が障害物を保持していた場合、それを解除する
             _groundObjects[0].Obstacle = null;
@@ -100,6 +101,12 @@ public class GroundManager : MonoBehaviour
             _groundObjects.Add(_groundObjects[0]);
             _groundObjects.RemoveAt(0);
         }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(_obstaclePool, 2);
     }
 
     private struct WallObject
