@@ -12,20 +12,19 @@ public class GroundManager : MonoBehaviour
     [SerializeField] private int _obstacleSpawnTiming;
     [SerializeField] private GameObject[] _obstacleObjects;
     [SerializeField] private Vector3 _obstaclePool;
-    
-    private List<WallObject> _wallObjects;
-    private List<Transform> _groundObjects;
-    private Queue<GameObject>[] _obstacleInstances;
-    
+
+    private List<Ground> _groundObjects;
+    private List<Transform> _obstacleTransforms;
+
     private int _obstacleSpawnCounter;
-    private bool _isStarted = false;
-    private const float GroundSize = 60; //グラウンドの大きさは60
+    private bool _isStarted;
+    private const float GroundSize = 29; //グラウンドの大きさは60
 
     public void GameStart()
     {
-        _isStarted = false;
         if (NetworkManager.Singleton.IsHost)
         {
+            _isStarted = false;
             _ = Initialize();
         }
     }
@@ -33,37 +32,21 @@ public class GroundManager : MonoBehaviour
     private async UniTask Initialize()
     {
         var groundResult = await InstantiateAsync(_groundObject, _groundCount, Vector3.zero, Quaternion.identity);
-        _groundObjects = groundResult.Select(o => o.transform).ToList();
+        _groundObjects = groundResult.Select(o => o.GetComponent<Ground>()).ToList();
         _isStarted = true;
         for (int i = 0; i < _groundObjects.Count; i++)
         {
-            _groundObjects[i].position = Vector3.forward * (i * GroundSize);
+            _groundObjects[i].gameObject.transform.position = Vector3.forward * (i * GroundSize);
             _groundObjects[i].GetComponent<NetworkObject>().Spawn();
         }
 
-        for (int i = 0; i < _obstacleObjects.Length; i++)
-        {
-            var obstacleResult = await InstantiateAsync(_obstacleObjects[i], 2, _obstaclePool, Quaternion.identity);
-
-            foreach (var obstacle in obstacleResult)
-            {
-                _obstacleInstances[i].Enqueue(obstacle);
-            }
-        }
-
-        for (int i = 0; i < _obstacleObjects.Length; i++)
-        {
-            for (int j = 0; j < 3; j++)
-            {
-               _obstacleInstances[i].Enqueue(Instantiate(_obstacleObjects[i], _obstaclePool, Quaternion.identity));
-            }
-        }
-
+        //障害物のオブジェクトを生成
         foreach (var obstacle in _obstacleObjects)
         {
             for (int i = 0; i < 3; i++)
             {
-                Instantiate(obstacle, _obstaclePool, Quaternion.identity);
+                var obstacleObj = Instantiate(obstacle, _obstaclePool, Quaternion.identity);
+                obstacleObj.GetComponent<NetworkObject>().Spawn();
             }
         }
     }
@@ -71,48 +54,40 @@ public class GroundManager : MonoBehaviour
     private void FixedUpdate()
     {
         if (!_isStarted) return;
-        _groundObjects[0].position += Vector3.back * (_speed * Time.fixedDeltaTime);
+        //一番手前の地面の位置を決定
+        _groundObjects[0].gameObject.transform.position += Vector3.back * (_speed * Time.fixedDeltaTime);
 
+        //一番手前の地面の位置を基準に地面の大きさづつずらした位置に他の地面を再配置
         for (int i = 1; i < _groundObjects.Count; i++)
         {
-            _groundObjects[i].position = _groundObjects[0].position + Vector3.forward * (i * GroundSize);
-            foreach (var wallObj in _wallObjects)
+            _groundObjects[i].gameObject.transform.position = 
+                _groundObjects[0].gameObject.transform.position + Vector3.forward * (i * GroundSize);
+            //地面が障害物を保持していた場合それも移動させる
+            if (!_groundObjects[i].Obstacle)
             {
-                if (_groundObjects[i] == wallObj.TargetTransform)
-                {
-                    wallObj.WallGameObject.transform.position = _groundObjects[i].position;
-                }
+                _groundObjects[i].Obstacle.position = _groundObjects[i].gameObject.transform.position;
             }
         }
 
-        if (_groundObjects[0].position.z < GroundSize * -1)
+        //地面がカメラより後ろにあった場合一番奥に移動させる
+        if (_groundObjects[0].gameObject.transform.position.z < GroundSize * -1)
         {
-            if (_wallObjects[0].TargetTransform == _groundObjects[0])
+            //地面が障害物を保持していた場合、それを解除する
+            if (!_groundObjects[0].Obstacle)
             {
-                _wallObjects[0].TargetTransform.position = _obstaclePool;
-                _wallObjects.RemoveAt(0);
+                _groundObjects[0].Obstacle = null;
             }
-            _groundObjects.Add(_groundObjects[0]);
-            _groundObjects.RemoveAt(0);
+            //障害物を出現させるタイミングだった場合は障害物を地面に登録する
             if (_obstacleSpawnCounter >= _obstacleSpawnTiming)
             {
                 _obstacleSpawnCounter = 0;
-                bool isWall = Random.value < 0.5f;
-                if (isWall)
-                {
-                    GameObject obj = _obstacleInstances[0].Dequeue();
-                   _wallObjects.Add(new WallObject()
-                   {
-                       TargetTransform = _groundObjects[0].transform,
-                       WallGameObject = obj
-                   }); 
-                   _obstacleInstances[0].Enqueue(obj);
-                }
             }
             else
             {
                 _obstacleSpawnCounter++;
             }
+            _groundObjects.Add(_groundObjects[0]);
+            _groundObjects.RemoveAt(0);
         }
     }
 
