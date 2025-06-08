@@ -17,6 +17,7 @@ namespace GamesKeystoneFramework.MultiPlaySystem
         
         public void Send(int methodNum, MultiPlayData data = default)
         {
+            
             if (NetworkManager.Singleton.IsHost)
             {
                 Debug.Log("MultiPlayRadioTower: Is Host");
@@ -30,6 +31,21 @@ namespace GamesKeystoneFramework.MultiPlaySystem
                 SendDataToServerRPC(data, methodNum);
             }
         }
+
+        public void SendBoth(int methodNum, MultiPlayData data = default)
+        {
+            data.Value ??= "Send To Both";
+            SendDataToBothClientRPC(methodNum, data);
+        }
+        
+        
+        [ClientRpc(RequireOwnership = false)]
+        private void SendDataToBothClientRPC(int methodNum, MultiPlayData multiPlayData = default)
+        {
+            Debug.Log(multiPlayData.Value);
+            OnMultiPlayDataReceived?.Invoke(multiPlayData,methodNum);
+        }
+        
         /// <summary>
         /// クライアントにデータを送信
         /// サーバー側で呼び出すとクライアント側で実行される
@@ -43,12 +59,6 @@ namespace GamesKeystoneFramework.MultiPlaySystem
             OnMultiPlayDataReceived?.Invoke(multiPlayData,methodNum);
         }
 
-        [ClientRpc(RequireOwnership = false)]
-        public void SendDataToBothClientRPC(MultiPlayData multiPlayData, int methodNum)
-        {
-            Debug.Log(multiPlayData.Value);
-            OnMultiPlayDataReceived?.Invoke(multiPlayData,methodNum);
-        }
 
         /// <summary>
         /// サーバーにデータを送信
