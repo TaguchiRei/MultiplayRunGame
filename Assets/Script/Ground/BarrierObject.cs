@@ -11,20 +11,9 @@ public class BarrierObject : MonoBehaviour
     private MultiPlayRadioTower _multiPlayRadioTower;
     private GroundManager _groundManager;
 
-    public Transform GroundTransform;
-
     private void OnEnable()
     {
         _multiPlayRadioTower = FindAnyObjectByType<MultiPlayRadioTower>();
-    }
-
-    private void FixedUpdate()
-    {
-        if(!NetworkManager.Singleton.IsHost) return;
-        if (GroundTransform)
-        {
-            transform.position = GroundTransform.position;
-        }
     }
 
     private void OnCollisionEnter(Collision other)
