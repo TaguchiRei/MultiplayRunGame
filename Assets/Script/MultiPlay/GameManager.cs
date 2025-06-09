@@ -36,6 +36,8 @@ public class GameManager : MultiPlayManagerBase
     private int _score;
     private int _hitPoint;
     
+    private bool _isSuvive = false;
+    
     
     /// <summary>
     /// 直近のジャンプのタイミング。
@@ -52,6 +54,7 @@ public class GameManager : MultiPlayManagerBase
     public void Start()
     {
         _score = 0;
+        _isSuvive = true;
         _hitPoint = _maxHitPoint;
     }
 
@@ -90,6 +93,7 @@ public class GameManager : MultiPlayManagerBase
 
     private void Damage()
     {
+        if(!_isSuvive) return;
         Debug.Log("Damage");
         _hitPoint--;
         _hitPointGageImage.DOFillAmount((float)_hitPoint / _maxHitPoint,0.5f);
@@ -101,6 +105,7 @@ public class GameManager : MultiPlayManagerBase
 
     public void Dead()
     {
+        _isSuvive = false;
         Debug.Log("Dead");
         _scoreText.text = $"最終スコア : {_score}!";
         _titleObjects[0].SetActive(true);
@@ -180,6 +185,11 @@ public class GameManager : MultiPlayManagerBase
         {
             obj.SetActive(false);
         }
+    }
+
+    public void GameEnd()
+    {
+        Application.Quit();
     }
 
     public enum InGameState
