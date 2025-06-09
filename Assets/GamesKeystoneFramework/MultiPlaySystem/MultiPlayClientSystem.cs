@@ -6,6 +6,7 @@ using Unity.Netcode.Transports.UTP;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using Unity.Services.Relay;
+using Unity.Services.Relay.Models;
 using UnityEngine;
 
 namespace GamesKeystoneFramework.MultiPlaySystem
@@ -82,22 +83,19 @@ namespace GamesKeystoneFramework.MultiPlaySystem
             {
                 var unityTransport = NetworkManager.Singleton.GetComponent<UnityTransport>();
                 var allocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
-                unityTransport.SetRelayServerData(
-                    allocation.RelayServer.IpV4,
-                    (ushort)allocation.RelayServer.Port,
-                    allocation.AllocationIdBytes,
-                    allocation.Key,
-                    allocation.ConnectionData,
-                    allocation.HostConnectionData);
                 
-                    NetworkManager.Singleton.StartClient();
+                var relayServerData = allocation.ToRelayServerData("wss");
+                unityTransport.SetRelayServerData(relayServerData);
+
+                NetworkManager.Singleton.StartClient();
                 return true;
             }
             catch (Exception e)
             {
-                Debug.LogError($"Join Relay Error{e.Message}");
+                Debug.LogError($"Join Relay Error: {e.Message}");
                 return false;
             }
         }
+
     }
 }
