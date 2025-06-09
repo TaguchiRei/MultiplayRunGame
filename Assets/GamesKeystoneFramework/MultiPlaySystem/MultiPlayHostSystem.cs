@@ -43,7 +43,7 @@ namespace GamesKeystoneFramework.MultiPlaySystem
                     (lobbyData.LobbyName, lobbyData.MaxPlayers, createLobbyOptions);
                 
                 //Relayの接続設定
-                var relayServerData = allocation.ToRelayServerData("wss");
+                var relayServerData = allocation.ToRelayServerData("dtls");
                 NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
                 return (true, joinLobby);
         }

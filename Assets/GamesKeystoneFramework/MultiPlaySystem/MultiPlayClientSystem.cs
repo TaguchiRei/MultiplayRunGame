@@ -83,10 +83,13 @@ namespace GamesKeystoneFramework.MultiPlaySystem
             {
                 var unityTransport = NetworkManager.Singleton.GetComponent<UnityTransport>();
                 var allocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
-                
-                var relayServerData = allocation.ToRelayServerData("wss");
-                unityTransport.SetRelayServerData(relayServerData);
-
+                unityTransport.SetRelayServerData(
+                    allocation.RelayServer.IpV4,
+                    (ushort)allocation.RelayServer.Port,
+                    allocation.AllocationIdBytes,
+                    allocation.Key,
+                    allocation.ConnectionData,
+                    allocation.HostConnectionData);
                 NetworkManager.Singleton.StartClient();
                 return true;
             }
