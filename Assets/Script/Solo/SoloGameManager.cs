@@ -71,5 +71,6 @@ public class SoloGameManager : MonoBehaviour
             obj.SetActive(false);
         }
         _soloPlayerManager.GameStart();
+        _started = true;
     }
 }

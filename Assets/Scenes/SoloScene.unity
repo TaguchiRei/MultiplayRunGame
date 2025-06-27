@@ -2469,6 +2469,7 @@ MonoBehaviour:
   _countdownText: {fileID: 599511314}
   _groundManager: {fileID: 2117635966}
   _soloPlayerManager: {fileID: 8462070631129834253}
+  _inputManager: {fileID: 356800564}
 --- !u!1 &2126086135
 GameObject:
   m_ObjectHideFlags: 0
