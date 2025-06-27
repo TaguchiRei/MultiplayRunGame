@@ -37,7 +37,7 @@ public class GameManager : MultiPlayManagerBase
     private int _score;
     private int _hitPoint;
     
-    private bool _isSuvive = false;
+    private bool _isSurvive = false;
     
     
     /// <summary>
@@ -55,7 +55,7 @@ public class GameManager : MultiPlayManagerBase
     public void Start()
     {
         _score = 0;
-        _isSuvive = true;
+        _isSurvive = true;
         _hitPoint = _maxHitPoint;
     }
 
@@ -103,12 +103,12 @@ public class GameManager : MultiPlayManagerBase
     private void GetScore()
     {
         Debug.Log("Add Score");
-        _score += 1200;
+        _score += 856;//スコアを乱雑な数値にしてそれらしく
     }
 
     private void Damage()
     {
-        if(!_isSuvive) return;
+        if(!_isSurvive) return;
         Debug.Log("Damage");
         _hitPoint--;
         _hitPointGageImage.DOFillAmount((float)_hitPoint / _maxHitPoint,0.5f);
@@ -120,7 +120,7 @@ public class GameManager : MultiPlayManagerBase
 
     public void Dead()
     {
-        _isSuvive = false;
+        _isSurvive = false;
         Debug.Log("Dead");
         _scoreText.text = $"最終スコア : {_score}!";
         _titleObjects[0].SetActive(true);

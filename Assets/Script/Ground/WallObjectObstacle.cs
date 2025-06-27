@@ -6,6 +6,7 @@ public class WallObjectObstacle : MonoBehaviour
 {
     private MultiPlayRadioTower _multiPlayRadioTower;
     private GroundManager _groundManager;
+    
 
     private void OnEnable()
     {
