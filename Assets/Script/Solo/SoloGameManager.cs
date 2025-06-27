@@ -23,18 +23,23 @@ public class SoloGameManager : MonoBehaviour
     [SerializeField] private SoloPlayerManager _soloPlayerManager;
     [SerializeField] private InputManager _inputManager;
     
+    [SerializeField] private Image _scoreEffect;
+    [SerializeField] private Image _dmgEffect;
+    
     private void Start()
     {
         _groundManager.GameStart(false);
         _inputManager.GameStart();
         _ = StartCountDown();
         _isSurvive = true;
+        _hitPoint = _maxHitPoint;
     }
     
     public void GetScore()
     {
         Debug.Log("Add Score");
-        _score += 856;//スコアを乱雑な数値にしてそれらしく
+        _score += 356;//スコアを乱雑な数値にしてそれらしく
+        ShowEffect(_scoreEffect);
     }
 
     public void Damage()
@@ -43,6 +48,7 @@ public class SoloGameManager : MonoBehaviour
         Debug.Log("Damage");
         _hitPoint--;
         _hitPointGageImage.DOFillAmount((float)_hitPoint / _maxHitPoint, 0.5f);
+        ShowEffect(_dmgEffect);
         if (_hitPoint <= 0)
         {
             Dead();
@@ -57,6 +63,14 @@ public class SoloGameManager : MonoBehaviour
         _titleObjects[0].SetActive(true);
         _scoreText.enabled = true;
     }
+    
+    private void ShowEffect(Image effect)
+    {
+        effect.color = new Color(effect.color.r, effect.color.g, effect.color.b, 1f);
+        effect.DOFade(0f, 1f)
+            .SetEase(Ease.OutQuad);
+    }
+    
     private async UniTask StartCountDown()
     {
         _countdownText.enabled = true;

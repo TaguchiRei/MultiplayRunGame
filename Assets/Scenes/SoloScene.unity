@@ -2460,7 +2460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHitPoint: 5
-  _hitPointGageImage: {fileID: 1148447815}
+  _hitPointGageImage: {fileID: 2126086138}
   _hitPointGage: {fileID: 1148447813}
   _titleObjects:
   - {fileID: 1317966947}
@@ -2470,6 +2470,8 @@ MonoBehaviour:
   _groundManager: {fileID: 2117635966}
   _soloPlayerManager: {fileID: 8462070631129834253}
   _inputManager: {fileID: 356800564}
+  _scoreEffect: {fileID: 617566800}
+  _dmgEffect: {fileID: 1455552336}
 --- !u!1 &2126086135
 GameObject:
   m_ObjectHideFlags: 0

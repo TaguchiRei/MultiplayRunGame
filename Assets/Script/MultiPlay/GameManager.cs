@@ -103,7 +103,7 @@ public class GameManager : MultiPlayManagerBase
     private void GetScore()
     {
         Debug.Log("Add Score");
-        _score += 856;//スコアを乱雑な数値にしてそれらしく
+        _score += 356;//スコアを乱雑な数値にしてそれらしく
     }
 
     private void Damage()

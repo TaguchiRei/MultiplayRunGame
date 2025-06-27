@@ -1,4 +1,6 @@
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SoloPlayerManager : MonoBehaviour
 {
@@ -75,6 +77,8 @@ public class SoloPlayerManager : MonoBehaviour
             _onGround = false;
         }
     }
+    
+
 
     private void OnCollisionEnter(Collision other)
     {
