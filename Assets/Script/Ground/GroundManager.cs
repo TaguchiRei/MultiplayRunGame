@@ -69,7 +69,7 @@ public class GroundManager : MonoBehaviour
             if (isMulti) _groundObjects[i].GetComponent<NetworkObject>().Spawn();
             if (i >= 5)
             {
-                
+                AttachObstacle(i);
             }
         }
 
@@ -120,7 +120,7 @@ public class GroundManager : MonoBehaviour
             if (_obstacleSpawnCounter >= _obstacleSpawnTiming)
             {
                 _obstacleSpawnCounter = 0;
-                AttachObstacle();
+                AttachObstacle(0);
             }
             else
             {
