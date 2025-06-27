@@ -27,13 +27,13 @@ public class SoloGameManager : MonoBehaviour
         _ = StartCountDown();
     }
     
-    private void GetScore()
+    public void GetScore()
     {
         Debug.Log("Add Score");
         _score += 856;//スコアを乱雑な数値にしてそれらしく
     }
 
-    private void Damage()
+    public void Damage()
     {
         if(!_isSurvive) return;
         Debug.Log("Damage");
@@ -63,5 +63,9 @@ public class SoloGameManager : MonoBehaviour
         }
         _countdownText.enabled = false;
         _hitPointGage.SetActive(true);
+        foreach (var obj in _titleObjects)
+        {
+            obj.SetActive(false);
+        }
     }
 }

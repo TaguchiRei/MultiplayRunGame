@@ -407,7 +407,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &599511312
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2461,7 +2461,9 @@ MonoBehaviour:
   _maxHitPoint: 5
   _hitPointGageImage: {fileID: 1148447815}
   _hitPointGage: {fileID: 1148447813}
-  _titleObjects: []
+  _titleObjects:
+  - {fileID: 1317966947}
+  - {fileID: 388788820}
   _scoreText: {fileID: 937901487}
   _countdownText: {fileID: 599511314}
   _groundManager: {fileID: 2117635966}
