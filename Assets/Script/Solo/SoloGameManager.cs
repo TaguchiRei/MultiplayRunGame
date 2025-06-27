@@ -20,10 +20,13 @@ public class SoloGameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _countdownText;
     [SerializeField] private GroundManager _groundManager;
     
-
+    [SerializeField] private SoloPlayerManager _soloPlayerManager;
+    [SerializeField] private InputManager _inputManager;
+    
     private void Start()
     {
         _groundManager.GameStart(false);
+        _inputManager.GameStart();
         _ = StartCountDown();
     }
     
@@ -67,5 +70,6 @@ public class SoloGameManager : MonoBehaviour
         {
             obj.SetActive(false);
         }
+        _soloPlayerManager.GameStart();
     }
 }

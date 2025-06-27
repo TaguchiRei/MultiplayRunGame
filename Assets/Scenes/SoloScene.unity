@@ -2468,6 +2468,7 @@ MonoBehaviour:
   _scoreText: {fileID: 937901487}
   _countdownText: {fileID: 599511314}
   _groundManager: {fileID: 2117635966}
+  _soloPlayerManager: {fileID: 8462070631129834253}
 --- !u!1 &2126086135
 GameObject:
   m_ObjectHideFlags: 0
@@ -3681,6 +3682,7 @@ GameObject:
   - component: {fileID: 4412540618643692258}
   - component: {fileID: 4600459184276868463}
   - component: {fileID: 637289251028545790}
+  - component: {fileID: 8462070631129834253}
   m_Layer: 0
   m_Name: HostPlayer
   m_TagString: HostPlayer
@@ -4815,6 +4817,25 @@ Transform:
   - {fileID: 3546370408368479903}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8462070631129834253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4489919170055011158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51a52c005dbd87444b892f3cc21de20b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputManager: {fileID: 356800564}
+  _animator: {fileID: 7482468875208967397}
+  _rigidbody: {fileID: 4412540618643692258}
+  _moveSpeed: 5
+  _jumpForce: 15
+  _defaultGravity: {x: 0, y: -30, z: 0}
+  _fallingGravity: {x: 0, y: -50, z: 0}
 --- !u!1 &8541995341446919282
 GameObject:
   m_ObjectHideFlags: 0

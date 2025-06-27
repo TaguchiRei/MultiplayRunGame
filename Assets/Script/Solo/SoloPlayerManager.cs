@@ -55,6 +55,7 @@ public class SoloPlayerManager : MonoBehaviour
 
     private void MoveDirectionUpdate(Vector2 inputVector)
     {
+        Debug.Log("MoveDirectionUpdate");
         _animator.SetFloat(LR, inputVector.x);
         _moveDirection = new Vector3(inputVector.x, 0, 0) * _moveSpeed;
     }
