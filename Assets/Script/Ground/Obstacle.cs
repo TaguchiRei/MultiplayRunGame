@@ -8,11 +8,6 @@ public class Obstacle : NetworkBehaviour
     [ClientRpc]
     public void ObstacleHideClientRpc()
     {
-        ObstacleHide();
-    }
-
-    public void ObstacleHide()
-    {
         _obstacle.SetActive(false);
         Invoke(nameof(ObstacleShow), 7f);
     }

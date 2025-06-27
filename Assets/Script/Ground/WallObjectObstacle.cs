@@ -29,8 +29,7 @@ public class WallObjectObstacle : MonoBehaviour
         }
         else
         {
-            if (other.gameObject.CompareTag("HostPlayer")) _soloGameManager.GetScore();
-            else _soloGameManager.Damage();
+            if (other.gameObject.CompareTag("HostPlayer")) _soloGameManager.Damage();
         }
     }
 }

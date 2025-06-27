@@ -28,6 +28,7 @@ public class SoloGameManager : MonoBehaviour
         _groundManager.GameStart(false);
         _inputManager.GameStart();
         _ = StartCountDown();
+        _isSurvive = true;
     }
     
     public void GetScore()

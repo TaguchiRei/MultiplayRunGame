@@ -31,7 +31,7 @@ public class BarrierObject : MonoBehaviour
         }
         else
         {
-            if (other.gameObject.CompareTag("HostPlayer")) _soloGameManager.GetScore();
+            if (other.gameObject.CompareTag("HostPlayer") && _isHostBarrier) _soloGameManager.GetScore();
             else _soloGameManager.Damage();
         }
     }
