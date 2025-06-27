@@ -2421,6 +2421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _groundCount: 6
+  _obstacleInitialize: 4
   _speed: 10
   _groundReturnPoint: -2
   _groundObject: {fileID: 6709922590968319902, guid: 73465bd963c14014698ec539e1bf2bf5, type: 3}

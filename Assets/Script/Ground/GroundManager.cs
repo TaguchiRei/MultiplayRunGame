@@ -7,6 +7,7 @@ using UnityEngine;
 public class GroundManager : MonoBehaviour
 {
     [SerializeField, Range(1, 10)] private int _groundCount;
+    [SerializeField] private int _obstacleInitialize;
     [SerializeField] private float _speed;
     [SerializeField, Range(-10, -1)] private int _groundReturnPoint;
     [SerializeField] private GameObject _groundObject;
@@ -67,7 +68,7 @@ public class GroundManager : MonoBehaviour
         {
             _groundObjects[i].gameObject.transform.position = Vector3.forward * (i * GroundSize);
             if (isMulti) _groundObjects[i].GetComponent<NetworkObject>().Spawn();
-            if (i >= 5)
+            if (i >= _obstacleInitialize)
             {
                 AttachObstacle(i);
             }
