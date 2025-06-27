@@ -120,10 +120,7 @@ public class GroundManager : MonoBehaviour
             if (_obstacleSpawnCounter >= _obstacleSpawnTiming)
             {
                 _obstacleSpawnCounter = 0;
-                _groundObjects[0].Obstacle = _obstacleTransforms[0];
-                var obstacleTransform = _obstacleTransforms[0];
-                _obstacleTransforms.RemoveAt(0);
-                _obstacleTransforms.Add(obstacleTransform);
+                AttachObstacle();
             }
             else
             {
@@ -133,6 +130,18 @@ public class GroundManager : MonoBehaviour
             _groundObjects.Add(_groundObjects[0]);
             _groundObjects.RemoveAt(0);
         }
+    }
+
+    /// <summary>
+    /// 指定したインデックスの地面に障害物をアタッチする
+    /// </summary>
+    /// <param name="groundObjectIndex"></param>
+    private void AttachObstacle(int groundObjectIndex)
+    {
+        _groundObjects[groundObjectIndex].Obstacle = _obstacleTransforms[0];
+        var obstacleTransform = _obstacleTransforms[0];
+        _obstacleTransforms.RemoveAt(0);
+        _obstacleTransforms.Add(obstacleTransform);
     }
 
     void OnDrawGizmos()
