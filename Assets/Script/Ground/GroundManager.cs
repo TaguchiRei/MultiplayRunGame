@@ -30,7 +30,7 @@ public class GroundManager : MonoBehaviour
         }
     }
 
-    private async UniTask Initialize()
+    private async UniTask Initialize(bool isMulti = true)
     {
         _obstacleTransforms = new ();
         var groundResult = await InstantiateAsync(_groundObject, _groundCount, Vector3.zero, Quaternion.identity);
@@ -39,7 +39,7 @@ public class GroundManager : MonoBehaviour
         for (int i = 0; i < _groundObjects.Count; i++)
         {
             _groundObjects[i].gameObject.transform.position = Vector3.forward * (i * GroundSize);
-            _groundObjects[i].GetComponent<NetworkObject>().Spawn();
+            if(isMulti) _groundObjects[i].GetComponent<NetworkObject>().Spawn();
         }
 
         //障害物のオブジェクトを生成
@@ -48,7 +48,7 @@ public class GroundManager : MonoBehaviour
             for (int i = 0; i < 3; i++)
             {
                 var obstacleObj = Instantiate(obstacle, _obstaclePool, Quaternion.identity); 
-                obstacleObj.GetComponent<NetworkObject>().Spawn();
+                if(isMulti) obstacleObj.GetComponent<NetworkObject>().Spawn();
                 _obstacleTransforms.Add(obstacleObj.transform);
             }
         }
