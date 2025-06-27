@@ -7,13 +7,12 @@ using UnityEngine.UI;
 
 public class SoloGameManager : MonoBehaviour
 {
-    public static bool IsSoloMode = false;
-
     private int _score;
     private int _hitPoint;
     private bool _isSurvive;
     [SerializeField] private int _maxHitPoint = 5;
     [SerializeField] private Image _hitPointGageImage;
+    [SerializeField] private GameObject _hitPointGage;
 
     [SerializeField] private GameObject[] _titleObjects;
     [SerializeField] private TextMeshProUGUI _scoreText;
@@ -24,13 +23,8 @@ public class SoloGameManager : MonoBehaviour
 
     private void Start()
     {
-        IsSoloMode = true;
-        _groundManager.GameStart();
-    }
-
-    private void GameStart()
-    {
-        
+        _groundManager.GameStart(false);
+        _ = StartCountDown();
     }
     
     private void GetScore()
@@ -62,13 +56,12 @@ public class SoloGameManager : MonoBehaviour
     private async UniTask StartCountDown()
     {
         _countdownText.enabled = true;
-        for (int i = 3; i > 0; i--)
+        for (int i = 5; i > 0; i--)
         {
             _countdownText.text = i.ToString();
-            await UniTask.Delay(1000);
+            await UniTask.WaitForSeconds(1f);
         }
-        _countdownText.text = "Start!";
-        await UniTask.Delay(1000);
         _countdownText.enabled = false;
+        _hitPointGage.SetActive(true);
     }
 }
