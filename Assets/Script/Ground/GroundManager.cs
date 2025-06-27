@@ -41,15 +41,6 @@ public class GroundManager : MonoBehaviour
     private async UniTask Initialize(bool isMulti)
     {
         _obstacleTransforms = new();
-        var groundResult = await InstantiateAsync(_groundObject, _groundCount, Vector3.zero, Quaternion.identity);
-        _groundObjects = groundResult.Select(o => o.GetComponent<Ground>()).ToList();
-        _isStarted = true;
-        for (int i = 0; i < _groundObjects.Count; i++)
-        {
-            _groundObjects[i].gameObject.transform.position = Vector3.forward * (i * GroundSize);
-            if (isMulti) _groundObjects[i].GetComponent<NetworkObject>().Spawn();
-        }
-
         //障害物のオブジェクトを生成
         foreach (var obstacle in _obstacleObjects)
         {
@@ -59,8 +50,7 @@ public class GroundManager : MonoBehaviour
                 if (isMulti) obstacleObj.GetComponent<NetworkObject>().Spawn();
                 _obstacleTransforms.Add(obstacleObj.transform);
             }
-        }
-
+        } 
         //障害物をFisher-Yatesを利用してシャッフル
         for (int i = _obstacleTransforms.Count - 1; i > 0; i--)
         {
@@ -68,12 +58,38 @@ public class GroundManager : MonoBehaviour
             (_obstacleTransforms[i], _obstacleTransforms[randomIndex]) =
                 (_obstacleTransforms[randomIndex], _obstacleTransforms[i]);
         }
+
+        //地面を生成
+        var groundResult = await InstantiateAsync(_groundObject, _groundCount, Vector3.zero, Quaternion.identity);
+        _groundObjects = groundResult.Select(o => o.GetComponent<Ground>()).ToList();
+        _isStarted = true;
+        for (int i = 0; i < _groundObjects.Count; i++)
+        {
+            _groundObjects[i].gameObject.transform.position = Vector3.forward * (i * GroundSize);
+            if (isMulti) _groundObjects[i].GetComponent<NetworkObject>().Spawn();
+            if (i >= 5)
+            {
+                
+            }
+        }
+
+
     }
 
     private void FixedUpdate()
     {
         if (!_isStarted) return;
         //一番手前の地面の位置を決定
+        GroundMove();
+        
+        GroundRePosition();
+    }
+
+    /// <summary>
+    /// 地面の位置を再調整する
+    /// </summary>
+    void GroundMove()
+    {
         _groundObjects[0].gameObject.transform.position += Vector3.back * (_speed * Time.fixedDeltaTime);
 
         //一番手前の地面の位置を基準に地面の大きさづつずらした位置に他の地面を再配置
@@ -87,7 +103,13 @@ public class GroundManager : MonoBehaviour
                 _groundObjects[i].Obstacle.position = _groundObjects[i].gameObject.transform.position;
             }
         }
+    }
 
+    /// <summary>
+    ///　地面が画面より後ろに来たら一番奥に移動させる
+    /// </summary>
+    void GroundRePosition()
+    {
         //地面がカメラより後ろにあった場合一番奥に移動させる
         if (_groundObjects[0].gameObject.transform.position.z < GroundSize * _groundReturnPoint)
         {
@@ -99,9 +121,9 @@ public class GroundManager : MonoBehaviour
             {
                 _obstacleSpawnCounter = 0;
                 _groundObjects[0].Obstacle = _obstacleTransforms[0];
-                var temp = _obstacleTransforms[0];
+                var obstacleTransform = _obstacleTransforms[0];
                 _obstacleTransforms.RemoveAt(0);
-                _obstacleTransforms.Add(temp);
+                _obstacleTransforms.Add(obstacleTransform);
             }
             else
             {
