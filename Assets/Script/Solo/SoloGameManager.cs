@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -16,11 +17,20 @@ public class SoloGameManager : MonoBehaviour
 
     [SerializeField] private GameObject[] _titleObjects;
     [SerializeField] private TextMeshProUGUI _scoreText;
+
+    [SerializeField] private TextMeshProUGUI _countdownText;
+    [SerializeField] private GroundManager _groundManager;
     
 
     private void Start()
     {
         IsSoloMode = true;
+        _groundManager.GameStart();
+    }
+
+    private void GameStart()
+    {
+        
     }
     
     private void GetScore()
@@ -48,5 +58,17 @@ public class SoloGameManager : MonoBehaviour
         _scoreText.text = $"最終スコア : {_score}!";
         _titleObjects[0].SetActive(true);
         _scoreText.enabled = true;
+    }
+    private async UniTask StartCountDown()
+    {
+        _countdownText.enabled = true;
+        for (int i = 3; i > 0; i--)
+        {
+            _countdownText.text = i.ToString();
+            await UniTask.Delay(1000);
+        }
+        _countdownText.text = "Start!";
+        await UniTask.Delay(1000);
+        _countdownText.enabled = false;
     }
 }

@@ -21,16 +21,16 @@ public class GroundManager : MonoBehaviour
     private bool _isStarted;
     private const float GroundSize = 29; //グラウンドの大きさは60
 
-    public void GameStart()
+    public void GameStart(bool isMulti = true)
     {
         if (NetworkManager.Singleton.IsHost)
         {
             _isStarted = false;
-            _ = Initialize();
+            _ = Initialize(isMulti);
         }
     }
 
-    private async UniTask Initialize(bool isMulti = true)
+    private async UniTask Initialize(bool isMulti)
     {
         _obstacleTransforms = new ();
         var groundResult = await InstantiateAsync(_groundObject, _groundCount, Vector3.zero, Quaternion.identity);
