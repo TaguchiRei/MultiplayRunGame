@@ -2,6 +2,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
+using Unity.Networking.Transport.Relay;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using Unity.Services.Relay;
@@ -42,9 +43,15 @@ namespace GamesKeystoneFramework.MultiPlaySystem
                 var joinLobby = await LobbyService.Instance.CreateLobbyAsync
                     (lobbyData.LobbyName, lobbyData.MaxPlayers, createLobbyOptions);
                 
-                //Relayの接続設定
+// Relayの接続方式をプラットフォームによって変更する
+#if UNITY_WEBGL && !UNITY_EDITOR
+                var relayServerData = allocation.ToRelayServerData("wss");
+#else
                 var relayServerData = allocation.ToRelayServerData("dtls");
+#endif
+
                 NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+
                 return (true, joinLobby);
         }
 

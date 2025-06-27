@@ -47,7 +47,7 @@ public class GroundManager : MonoBehaviour
         {
             for (int i = 0; i < 3; i++)
             {
-                var obstacleObj = Instantiate(obstacle, _obstaclePool, Quaternion.identity);
+                var obstacleObj = Instantiate(obstacle, _obstaclePool, Quaternion.identity); 
                 obstacleObj.GetComponent<NetworkObject>().Spawn();
                 _obstacleTransforms.Add(obstacleObj.transform);
             }

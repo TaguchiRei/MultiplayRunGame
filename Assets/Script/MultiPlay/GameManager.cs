@@ -5,6 +5,7 @@ using GamesKeystoneFramework.MultiPlaySystem;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class GameManager : MultiPlayManagerBase
@@ -19,8 +20,8 @@ public class GameManager : MultiPlayManagerBase
     
     [SerializeField] TextMeshProUGUI _countdownText;
     
-    [SerializeField] private Animator _leftEffect;
-    [SerializeField] private Animator _rightEffect;
+    [SerializeField] private Image _dmgEffect;
+    [SerializeField] private Image _pointEffect;
 
     [SerializeField] private GameObject[] _titleObjects;
 
@@ -83,12 +84,26 @@ public class GameManager : MultiPlayManagerBase
     private void Update()
     {
         if(!_started)return;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("Mouse Down");
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit) &&
+                hit.collider.gameObject.CompareTag("WallObstacle") &&
+                hit.collider.transform.root.TryGetComponent<Obstacle>(out var obstacle))
+            {
+                Debug.Log("Hit");
+                obstacle.ObstacleHideClientRpc();
+            }
+        }
     }
 
     private void GetScore()
     {
         Debug.Log("Add Score");
-        _score++;
+        _score += 1200;
     }
 
     private void Damage()
@@ -145,9 +160,11 @@ public class GameManager : MultiPlayManagerBase
                 break;
             case 3://両者
                 GetScore();
+                ShowEffect(_pointEffect);
                 break;
             case 4:
                 Damage();
+                ShowEffect(_dmgEffect);
                 break;
             case 5:
                 Dead();
@@ -156,7 +173,7 @@ public class GameManager : MultiPlayManagerBase
                 break;
         }
     }
-
+    
     private async UniTask WaitChangeOwner()
     {
         await UniTask.WaitUntil(() => _clientPlayerNetworkObject.IsOwner);
@@ -185,11 +202,20 @@ public class GameManager : MultiPlayManagerBase
         {
             obj.SetActive(false);
         }
+        _started = true;
     }
 
     public void GameEnd()
     {
         Application.Quit();
+    }
+    
+    
+    private void ShowEffect(Image effect)
+    {
+        effect.color = new Color(effect.color.r, effect.color.g, effect.color.b, 1f);
+        effect.DOFade(0f, 1f)
+            .SetEase(Ease.OutQuad);
     }
 
     public enum InGameState

@@ -9,6 +9,7 @@ TagManager:
   - HostBarrier
   - ClientBarrier
   - ClientPlayer
+  - WallObstacle
   layers:
   - Default
   - TransparentFX
