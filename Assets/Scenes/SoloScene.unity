@@ -296,7 +296,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0522ed09e1ed8984982c48a6e1097878, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 53eabc53f2b164849bed27f42cf30b9e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -457,8 +457,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 6
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 908ac926f70bf7249862c0b827745749, type: 2}
-  m_sharedMaterial: {fileID: 6927899014137560914, guid: 908ac926f70bf7249862c0b827745749, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ff28c4077a077444e8d36cfef93ccca8, type: 2}
+  m_sharedMaterial: {fileID: 3043717687575222359, guid: ff28c4077a077444e8d36cfef93ccca8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -724,7 +724,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: eab7f2be2492d934eaf479caa9257cf5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 60c301866b92692499690c522fcbb8b9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -946,8 +946,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 908ac926f70bf7249862c0b827745749, type: 2}
-  m_sharedMaterial: {fileID: 6927899014137560914, guid: 908ac926f70bf7249862c0b827745749, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ff28c4077a077444e8d36cfef93ccca8, type: 2}
+  m_sharedMaterial: {fileID: 3043717687575222359, guid: ff28c4077a077444e8d36cfef93ccca8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1176,7 +1176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b08f7e00735e40149ba5eaa7b1b97e0d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c4a02820e5a2aef4aaf75402616eb5c7, type: 3}
   m_Type: 2
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1498,7 +1498,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: eab7f2be2492d934eaf479caa9257cf5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 60c301866b92692499690c522fcbb8b9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1623,7 +1623,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1e04720d356b5834e97702d1d0a4c650, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 344557fd7eab1e145bf3422208f87dcc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2142,8 +2142,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u30B2\u30FC\u30E0\u7D42\u4E86"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 908ac926f70bf7249862c0b827745749, type: 2}
-  m_sharedMaterial: {fileID: 6927899014137560914, guid: 908ac926f70bf7249862c0b827745749, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ff28c4077a077444e8d36cfef93ccca8, type: 2}
+  m_sharedMaterial: {fileID: 3043717687575222359, guid: ff28c4077a077444e8d36cfef93ccca8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2424,13 +2424,13 @@ MonoBehaviour:
   _obstacleInitialize: 4
   _speed: 10
   _groundReturnPoint: -2
-  _groundObject: {fileID: 6709922590968319902, guid: 73465bd963c14014698ec539e1bf2bf5, type: 3}
+  _groundObject: {fileID: 8074035364528476146, guid: d6d69b9aa44edb2448168568fc7e7b51, type: 3}
   _obstacleSpawnTiming: 1
   _obstacleObjects:
-  - {fileID: 2315081239472956373, guid: f03f6b00b884c0446ba7015d183b4c40, type: 3}
-  - {fileID: 6629797223612635950, guid: c4906d303d9a28c4dae98118b3da8723, type: 3}
-  - {fileID: 1524436963568246156, guid: 542dbb84aaa054046b227508a29ed2cf, type: 3}
-  - {fileID: 2245609074203807468, guid: fda5cf69605d345489f016921ad2eced, type: 3}
+  - {fileID: 583973308827810095, guid: c3e8d95a9df67d449aa042e232aa9e52, type: 3}
+  - {fileID: 5758687231735949325, guid: 0bb43eef9c20b22408d6617cb4a0345b, type: 3}
+  - {fileID: 6667590321185582381, guid: 8d29e6856e3e263439e3291f74b36d89, type: 3}
+  - {fileID: 401190721020973132, guid: 9a3af244dc737ac4ebeffd7b9a1d5fe6, type: 3}
   _obstaclePool: {x: 0, y: -47.7, z: -47}
 --- !u!4 &2117635968
 Transform:
@@ -2537,7 +2537,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 47a1fece5d8160e4ba8d737d65cb9119, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c751c53fd27dca846a5cefa661dc3aa6, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3653,10 +3653,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4489919170055011158}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}

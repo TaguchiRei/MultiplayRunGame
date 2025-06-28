@@ -36,7 +36,7 @@ public class GroundManager : MonoBehaviour
         {
             _isStarted = false;
         }
-        _ = Initialize(false);
+        _ = Initialize(isMulti);
     }
 
     private async UniTask Initialize(bool isMulti)
