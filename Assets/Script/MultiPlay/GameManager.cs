@@ -13,12 +13,12 @@ public class GameManager : MultiPlayManagerBase
     [SerializeField] MultiPlayRadioTower _radioTower;
     [SerializeField] InputManager _inputManager;
     [SerializeField] GroundManager _groundManager;
-     
+
     [SerializeField, Grouping] private NetworkObject _hostPlayerNetworkObject;
     [SerializeField, Grouping] private NetworkObject _clientPlayerNetworkObject;
-    
+
     [SerializeField] TextMeshProUGUI _countdownText;
-    
+
     [SerializeField] private Image _dmgEffect;
     [SerializeField] private Image _pointEffect;
 
@@ -30,20 +30,20 @@ public class GameManager : MultiPlayManagerBase
 
     [SerializeField] private int _maxHitPoint = 5;
 
-    
+
     private bool _started = false;
 
     private int _score;
     private int _hitPoint;
-    
+
     private bool _isSurvive = false;
-    
-    
+
+
     /// <summary>
     /// 直近のジャンプのタイミング。
     /// </summary>
-    [ReadOnlyInInspector]public NetworkVariable<float> _latestJumpTime;
-    
+    [ReadOnlyInInspector] public NetworkVariable<float> _latestJumpTime;
+
     public void HostConnection()
     {
         Debug.Log("HostConnection ManagerInitialize");
@@ -77,12 +77,11 @@ public class GameManager : MultiPlayManagerBase
         _inGameState = InGameState.Client;
         _radioTower.Send(0);
     }
-    
-    
+
 
     private void Update()
     {
-        if(!_started)return;
+        if (!_started) return;
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -102,15 +101,15 @@ public class GameManager : MultiPlayManagerBase
     private void GetScore()
     {
         Debug.Log("Add Score");
-        _score += 356;//スコアを乱雑な数値にしてそれらしく
+        _score += 356; //スコアを乱雑な数値にしてそれらしく
     }
 
     private void Damage()
     {
-        if(!_isSurvive) return;
+        if (!_isSurvive) return;
         Debug.Log("Damage");
         _hitPoint--;
-        _hitPointGageImage.DOFillAmount((float)_hitPoint / _maxHitPoint,0.5f);
+        _hitPointGageImage.DOFillAmount((float)_hitPoint / _maxHitPoint, 0.5f);
         if (_hitPoint <= 0)
         {
             _radioTower.SendBoth(5);
@@ -126,12 +125,12 @@ public class GameManager : MultiPlayManagerBase
         _scoreText.enabled = true;
     }
 
-    public void MethodInvoker(MultiPlayData data ,int num)
+    public void MethodInvoker(MultiPlayData data, int num)
     {
         Debug.Log("Invoker");
         switch (num)
         {
-            case 0://ホスト側
+            case 0: //ホスト側
                 _inGameState = InGameState.Connecting;
                 ulong ID = 0;
                 foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
@@ -142,22 +141,23 @@ public class GameManager : MultiPlayManagerBase
                         break;
                     }
                 }
-                if(ID == 0)return;
+
+                if (ID == 0) return;
                 _clientPlayerNetworkObject.ChangeOwnership(ID);
                 _radioTower.Send(1);
                 Debug.Log("Connecting");
                 break;
-            case 1://クライアント側
+            case 1: //クライアント側
                 Debug.Log("WaitChangeOwner");
                 _ = WaitChangeOwner();
                 break;
             case 2:
                 Debug.Log("StartCountDown");
                 _ = StartCountDown();
-                if(NetworkManager.Singleton.IsHost)
+                if (NetworkManager.Singleton.IsHost)
                     _radioTower.Send(2);
                 break;
-            case 3://両者
+            case 3: //両者
                 GetScore();
                 ShowEffect(_pointEffect);
                 break;
@@ -172,7 +172,7 @@ public class GameManager : MultiPlayManagerBase
                 break;
         }
     }
-    
+
     private async UniTask WaitChangeOwner()
     {
         await UniTask.WaitUntil(() => _clientPlayerNetworkObject.IsOwner);
@@ -189,10 +189,11 @@ public class GameManager : MultiPlayManagerBase
             await UniTask.WaitForSeconds(1);
             _countdownText.text = i.ToString();
         }
+
         _countdownText.gameObject.SetActive(false);
         _hitPointGage.SetActive(true);
-        
-        if(NetworkManager.Singleton.IsHost)
+
+        if (NetworkManager.Singleton.IsHost)
             _hostPlayerNetworkObject.gameObject.GetComponent<MultiPlayInput>().GameStart();
         else
             _clientPlayerNetworkObject.gameObject.GetComponent<MultiPlayInput>().GameStart();
@@ -201,15 +202,20 @@ public class GameManager : MultiPlayManagerBase
         {
             obj.SetActive(false);
         }
+
         _started = true;
     }
 
     public void GameEnd()
     {
+#if UNITY_WEBGL
+        SceneManager.LoadScene("StartScene");
+#else
         Application.Quit();
+#endif
     }
-    
-    
+
+
     private void ShowEffect(Image effect)
     {
         effect.color = new Color(effect.color.r, effect.color.g, effect.color.b, 1f);

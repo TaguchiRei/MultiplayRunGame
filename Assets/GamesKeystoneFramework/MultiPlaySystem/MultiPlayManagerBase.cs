@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using GamesKeystoneFramework.Attributes;
 using Unity.Mathematics;
 using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Lobbies;
@@ -14,7 +15,8 @@ namespace GamesKeystoneFramework.MultiPlaySystem
 {
     public abstract class MultiPlayManagerBase : MonoBehaviour
     {
-        [SerializeField] private GameObject MultiPlayObjectGroup;
+        [SerializeField] private GameObject _multiPlayObjectGroup;
+        [SerializeField] private UnityTransport _transport;
 
         [field: Header("初期化完了しているかどうか")]
         public bool CanMultiPlay { get; private set; }
@@ -43,6 +45,11 @@ namespace GamesKeystoneFramework.MultiPlaySystem
         protected async UniTask<bool> ServicesInitialize()
         {
             connectionPhase = ConnectionPhase.NotInitialized;
+#if UNITY_WEBGL
+            _transport.UseWebSockets = true;
+#else
+            _transport.UseWebSockets = false;
+#endif
             //ゲーム側のサービス初期化
             try
             {
@@ -148,7 +155,7 @@ namespace GamesKeystoneFramework.MultiPlaySystem
             if (objNetworkObj != null)
             {
                 objNetworkObj.Spawn(true);
-                spawnObj.transform.SetParent(MultiPlayObjectGroup.transform);
+                spawnObj.transform.SetParent(_multiPlayObjectGroup.transform);
             }
             else
             {

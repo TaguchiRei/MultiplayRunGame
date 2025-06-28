@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u63A5\u7D9A\u30B3\u30FC\u30C9\u3092\u53D6\u5F97"
+  m_text: "\u4E00\u4EBA\u3067\u8D70\u308B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ff28c4077a077444e8d36cfef93ccca8, type: 2}
   m_sharedMaterial: {fileID: 3043717687575222359, guid: ff28c4077a077444e8d36cfef93ccca8, type: 2}
@@ -574,7 +574,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d67a618f474aaeb46b6960135083a845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MultiPlayObjectGroup: {fileID: 0}
+  _multiPlayObjectGroup: {fileID: 0}
+  _transport: {fileID: 1170422015}
   _systemClass:
     MultiPlayHostSystem: {fileID: 329938443}
     MultiPlayClient: {fileID: 329938442}
@@ -1163,7 +1164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce9b73e61abfd91449cee407f9c18b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MultiPlayObjectGroup: {fileID: 0}
+  _multiPlayObjectGroup: {fileID: 0}
+  _transport: {fileID: 1170422015}
   _systemClass:
     MultiPlayHostSystem: {fileID: 329938443}
     MultiPlayClient: {fileID: 329938442}
@@ -1221,7 +1223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _groundCount: 6
-  _obstacleInitialize: 0
+  _obstacleInitialize: 4
   _speed: 10
   _groundReturnPoint: -2
   _groundObject: {fileID: 8074035364528476146, guid: d6d69b9aa44edb2448168568fc7e7b51, type: 3}
@@ -1840,7 +1842,7 @@ GameObject:
   - component: {fileID: 1011020536}
   - component: {fileID: 1011020535}
   m_Layer: 5
-  m_Name: GetLobbyID
+  m_Name: SoloMode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1912,7 +1914,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 329938440}
         m_TargetAssemblyTypeName: StartMultiPlayManager, Assembly-CSharp
-        m_MethodName: ClipRoomID
+        m_MethodName: SoloModeStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

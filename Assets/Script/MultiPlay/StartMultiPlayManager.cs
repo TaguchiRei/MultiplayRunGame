@@ -8,6 +8,7 @@ using TMPro;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -212,6 +213,11 @@ public class StartMultiPlayManager : MultiPlayManagerBase
         _buttons.DisableButtons();
         _lobbyCheck = GetLobby(lobbyID);
         _connectionPhase = 5;
+    }
+
+    public void SoloModeStart()
+    {
+        SceneManager.LoadScene("SoloScene");
     }
 
     private async UniTask<(bool, Lobby)> GetLobby(string lobbyId)

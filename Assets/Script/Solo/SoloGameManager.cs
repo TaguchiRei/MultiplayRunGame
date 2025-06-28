@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SoloGameManager : MonoBehaviour
@@ -86,5 +87,19 @@ public class SoloGameManager : MonoBehaviour
             obj.SetActive(false);
         }
         _soloPlayerManager.GameStart();
+    }
+
+    public void GameEnd()
+    {
+#if UNITY_WEBGL
+        SceneManager.LoadScene("StartScene");
+#else
+        Application.Quit();
+#endif
+    }
+
+    public void ReTry()
+    {
+        SceneManager.LoadScene("SoloScene");
     }
 }
