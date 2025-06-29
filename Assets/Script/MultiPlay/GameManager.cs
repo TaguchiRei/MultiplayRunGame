@@ -46,6 +46,8 @@ public class GameManager : MultiPlayManagerBase
     /// </summary>
     [ReadOnlyInInspector] public NetworkVariable<float> _latestJumpTime;
 
+    private Tween _fadeTween;
+
     public void HostConnection()
     {
         Debug.Log("HostConnection ManagerInitialize");
@@ -91,7 +93,7 @@ public class GameManager : MultiPlayManagerBase
         if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("Mouse Down");
-            _beam.BeamShowHide(true);
+            _beam.BeamShowHideClientRPC(true);
             if (_aimMode)
             {
                 if (hitRay &&
@@ -101,7 +103,7 @@ public class GameManager : MultiPlayManagerBase
                     Debug.Log("Hit");
                     obstacle.ObstacleHideClientRpc();
                 }
-                _beam.BeamShowHide(false);
+                _beam.BeamShowHideClientRPC(false);
             }
             _aimMode = !_aimMode;
         }
@@ -232,9 +234,14 @@ public class GameManager : MultiPlayManagerBase
 
     private void ShowEffect(Image effect)
     {
+        _fadeTween.Pause();
+        _fadeTween.Kill();
+        _dmgEffect.color = new Color(_dmgEffect.color.r, _dmgEffect.color.g, _dmgEffect.color.b, 0f);
+        _pointEffect.color = new Color(_pointEffect.color.r, _pointEffect.color.g, _pointEffect.color.b, 0f);
         effect.color = new Color(effect.color.r, effect.color.g, effect.color.b, 1f);
-        effect.DOFade(0f, 1f)
+        _fadeTween = effect.DOFade(0f, 1f)
             .SetEase(Ease.OutQuad);
+        _fadeTween.Play();
     }
 
     public enum InGameState

@@ -17,7 +17,7 @@ public class Obstacle : NetworkBehaviour
 
     public void Update()
     {
-        if (transform.position.z <= 20)
+        if (transform.position.z <= -20)
         {
             _obstacle.SetActive(true);
         }

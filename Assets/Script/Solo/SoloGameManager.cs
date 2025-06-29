@@ -20,13 +20,16 @@ public class SoloGameManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI _countdownText;
     [SerializeField] private GroundManager _groundManager;
-    
+
     [SerializeField] private SoloPlayerManager _soloPlayerManager;
     [SerializeField] private InputManager _inputManager;
-    
+
     [SerializeField] private Image _scoreEffect;
     [SerializeField] private Image _dmgEffect;
     
+    Tween _pointTween;
+    Tween _dmgTween;
+
     private void Start()
     {
         _groundManager.GameStart(false);
@@ -35,17 +38,18 @@ public class SoloGameManager : MonoBehaviour
         _isSurvive = true;
         _hitPoint = _maxHitPoint;
     }
-    
+
     public void GetScore()
     {
+        if (!_isSurvive) return;
         Debug.Log("Add Score");
-        _score += 356;//スコアを乱雑な数値にしてそれらしく
+        _score += 356; //スコアを乱雑な数値にしてそれらしく
         ShowEffect(_scoreEffect);
     }
 
     public void Damage()
     {
-        if(!_isSurvive) return;
+        if (!_isSurvive) return;
         Debug.Log("Damage");
         _hitPoint--;
         _hitPointGageImage.DOFillAmount((float)_hitPoint / _maxHitPoint, 0.5f);
@@ -64,14 +68,24 @@ public class SoloGameManager : MonoBehaviour
         _titleObjects[0].SetActive(true);
         _scoreText.enabled = true;
     }
-    
+
+
     private void ShowEffect(Image effect)
     {
-        effect.color = new Color(effect.color.r, effect.color.g, effect.color.b, 1f);
-        effect.DOFade(0f, 1f)
-            .SetEase(Ease.OutQuad);
+        if (effect == _dmgEffect)
+        {
+            _dmgTween?.Kill();
+            _dmgEffect.color = new Color(1f, 0f, 0f, 1f); // 赤、完全表示
+            _dmgTween = _dmgEffect.DOFade(0f, 1f).SetEase(Ease.OutQuad);
+        }
+        else if (effect == _scoreEffect)
+        {
+            _pointTween?.Kill();
+            _scoreEffect.color = new Color(0f, 1f, 0f, 1f); // 緑、完全表示
+            _pointTween = _scoreEffect.DOFade(0f, 1f).SetEase(Ease.OutQuad);
+        }
     }
-    
+
     private async UniTask StartCountDown()
     {
         _countdownText.enabled = true;
@@ -80,12 +94,14 @@ public class SoloGameManager : MonoBehaviour
             _countdownText.text = i.ToString();
             await UniTask.WaitForSeconds(1f);
         }
+
         _countdownText.enabled = false;
         _hitPointGage.SetActive(true);
         foreach (var obj in _titleObjects)
         {
             obj.SetActive(false);
         }
+
         _soloPlayerManager.GameStart();
     }
 

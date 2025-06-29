@@ -2,7 +2,7 @@ using System;
 using Unity.Netcode;
 using UnityEngine;
 
-public class Beam : MonoBehaviour
+public class Beam : NetworkBehaviour
 {
     [SerializeField] private GameObject _player;
 
@@ -19,7 +19,8 @@ public class Beam : MonoBehaviour
         transform.rotation = rotation;
     }
 
-    public void BeamShowHide(bool show)
+    [ClientRpc]
+    public void BeamShowHideClientRPC(bool show)
     {
         _meshRenderer.enabled = show;
     }
