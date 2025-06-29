@@ -13,6 +13,7 @@ public class GameManager : MultiPlayManagerBase
     [SerializeField] MultiPlayRadioTower _radioTower;
     [SerializeField] InputManager _inputManager;
     [SerializeField] GroundManager _groundManager;
+    [SerializeField] private Beam _beam;
 
     [SerializeField, Grouping] private NetworkObject _hostPlayerNetworkObject;
     [SerializeField, Grouping] private NetworkObject _clientPlayerNetworkObject;
@@ -37,6 +38,7 @@ public class GameManager : MultiPlayManagerBase
     private int _hitPoint;
 
     private bool _isSurvive = false;
+    private bool _aimMode;
 
 
     /// <summary>
@@ -83,18 +85,29 @@ public class GameManager : MultiPlayManagerBase
     {
         if (!_started) return;
 
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        var hitRay = Physics.Raycast(ray, out RaycastHit hit);
+
         if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("Mouse Down");
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit) &&
-                hit.collider.gameObject.CompareTag("WallObstacle") &&
-                hit.collider.transform.root.TryGetComponent<Obstacle>(out var obstacle))
+            if (_aimMode)
             {
-                Debug.Log("Hit");
-                obstacle.ObstacleHideClientRpc();
+                if (hitRay &&
+                    hit.collider.gameObject.CompareTag("WallObstacle") &&
+                    hit.collider.transform.root.TryGetComponent<Obstacle>(out var obstacle))
+                {
+                    Debug.Log("Hit");
+                    obstacle.ObstacleHideClientRpc();
+                }
             }
+            _aimMode = !_aimMode;
+        }
+
+        if (_aimMode)
+        {
+            _beam.AimPosition = hit.point;
+            
         }
     }
 
