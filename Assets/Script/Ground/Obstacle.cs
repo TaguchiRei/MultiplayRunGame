@@ -1,5 +1,7 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Obstacle : NetworkBehaviour
 {
@@ -11,12 +13,14 @@ public class Obstacle : NetworkBehaviour
     {
         _obstacle.SetActive(false);
         BrokenObstacleShow();
-        Invoke(nameof(ObstacleShow), 8f);
     }
 
-    private void ObstacleShow()
+    public void Update()
     {
-        _obstacle.SetActive(true);
+        if (transform.position.z <= 20)
+        {
+            _obstacle.SetActive(true);
+        }
     }
 
     private void BrokenObstacleShow()
