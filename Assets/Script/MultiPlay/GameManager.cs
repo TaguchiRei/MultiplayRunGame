@@ -91,6 +91,7 @@ public class GameManager : MultiPlayManagerBase
         if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("Mouse Down");
+            _beam.BeamShowHide(true);
             if (_aimMode)
             {
                 if (hitRay &&
@@ -100,6 +101,7 @@ public class GameManager : MultiPlayManagerBase
                     Debug.Log("Hit");
                     obstacle.ObstacleHideClientRpc();
                 }
+                _beam.BeamShowHide(false);
             }
             _aimMode = !_aimMode;
         }
@@ -107,7 +109,6 @@ public class GameManager : MultiPlayManagerBase
         if (_aimMode)
         {
             _beam.AimPosition = hit.point;
-            
         }
     }
 

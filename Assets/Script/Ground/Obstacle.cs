@@ -25,9 +25,11 @@ public class Obstacle : NetworkBehaviour
         for (int i = 0; i < _brokenObstacle.transform.childCount; i++)
         {
             var obj = _brokenObstacle.transform.GetChild(i).gameObject;
-            obj.transform.position = new Vector3(0, 0, Random.Range(-0.05f, 0.05f));
-            obj.GetComponent<Rigidbody>().AddForce(
-                new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f), 0), ForceMode.Impulse);
+            obj.transform.localPosition = new Vector3(0, 0, Random.Range(-0.05f, 0.05f));
+            var objectRig = obj.GetComponent<Rigidbody>();
+            objectRig.linearVelocity = Vector3.zero;
+            objectRig.AddForce(
+                new Vector3(Random.Range(-10f, 10f), Random.Range(-10f, 10f), 0), ForceMode.Impulse);
         }
 
         Invoke(nameof(BrokenObstacleHide), 3);
